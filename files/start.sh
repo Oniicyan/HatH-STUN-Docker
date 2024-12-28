@@ -13,8 +13,8 @@ if [ $HathClientId ] && [ $HathClientKey ]; then
 	echo -n ''$HathClientId'-'$HathClientKey'' >$HathData/client_login
 else
 	if [ -f $HathData/client_login ]; then
-		export HathClientId=$(cat $HathData/client_login | awk -F '-' '{print$1}')
-		export HathClientKey=$(cat $HathData/client_login | awk -F '-' '{print$2}')
+		export HathClientId=$(awk -F '-' '{print$1}' $HathData/client_login)
+		export HathClientKey=$(awk -F '-' '{print$2}' $HathData/client_login)
 	fi
 fi
 ([ $(echo $HathClientId | grep -E '^[0-9]*$') ] && [ $(echo -n $HathClientKey | wc -m) = 20 ]) ||\

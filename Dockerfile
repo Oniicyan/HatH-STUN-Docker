@@ -12,6 +12,10 @@ FROM eclipse-temurin:8-jre-noble AS release
 COPY --from=builder /files /files
 COPY /files /files
 
-RUN chmod +x /files/* && export PATH=$PATH:/files
+RUN chmod +x /files/* \
+    && export PATH=$PATH:/files \
+    && apt-get update \
+	&& apt-get install -y miniupnpc \
+	&& rm -rf /var/lib/apt/lists/*
 
 CMD ["start.sh"]

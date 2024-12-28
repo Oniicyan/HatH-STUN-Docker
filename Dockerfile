@@ -15,7 +15,7 @@ COPY /files /files
 RUN chmod +x /files/* \
     && export PATH=$PATH:/files \
     && apt-get update \
-	&& apt-get install -y miniupnpc \
-	&& rm -rf /var/lib/apt/lists/*
+    && apt-get install -y miniupnpc \
+    && rm -rf /var/lib/apt/lists/*
 
 CMD ["start.sh"]

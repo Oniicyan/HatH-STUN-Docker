@@ -18,12 +18,12 @@ else
 	fi
 fi
 ([ $(echo $HathClientId | grep -E '^[0-9]*$') ] && [ $(echo -n $HathClientKey | wc -m) = 20 ]) ||\
-(echo H@H 客户端 ID 或密钥格式不正确 && exit 1)
+(echo $(date) H@H 客户端 ID 或密钥格式不正确 && exit 1)
 
 # 如未指定 STUN 模式，则直接启动 H@H 客户端
 if [ $Stun ]; then
 	([ $(echo $StunIpbId | grep -E '^[0-9]*$') ] && [ $(echo -n $StunIpbPass | wc -m) = 32 ]) ||\
-	(echo 用户 ID（ipb_member_id）或密钥（ipb_pass_hash）格式不正确 && exit 1)
+	(echo $(date) 用户 ID（ipb_member_id）或密钥（ipb_pass_hash）格式不正确 && exit 1)
 	[ $StunServer ] || StunServer=turn.cloudflare.com
 	[ $StunHttpServer ] || StunHttpServer=qq.com
 	[ $StunBindPort ] || StunBindPort=44377

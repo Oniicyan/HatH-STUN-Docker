@@ -29,12 +29,14 @@ if [ $Stun ]; then
 	[ $StunBindPort ] || StunBindPort=44377
 	[ $StunHathPort ] || StunHathPort=44388
 	export HathPort=$StunHathPort
+	[ $StunInterval ] || StunInterval=25
+	[ $StunInterface ] && StunInterface='-i '$StunInterface''
 	if [ $StunForward ]; then
 		[ $StunForwardAddr ] || StunForwardAddr=127.0.0.1
 		StunForward='-t '$StunForwardAddr' -p '$StunHathPort''
 		export HathSkipIpCheck=1
 	fi
-	NatmapStart='natmap -s '$StunServer' -h '$StunHttpServer' -b '$StunBindPort' '$StunForward' -e natmap.sh'
+	NatmapStart='natmap -d -4 -s '$StunServer' -h '$StunHttpServer' -b '$StunBindPort' -k '$StunInterval' '$StunInterface' '$StunForward' -e natmap.sh'
 	echo $(date) 本次 NATMap 执行命令如下
 	echo $(date) $NatmapStart
 	$NatmapStart

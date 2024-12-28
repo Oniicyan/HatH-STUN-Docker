@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE: Oniicyan/hentaiathome
+  IMAGE: oniicyan/hentaiathome
 
 jobs:
   push_to_registry:

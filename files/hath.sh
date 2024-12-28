@@ -47,7 +47,7 @@ else
 fi
 
 # 启动 H@H 客户端
-CMD='java '$JvmArgs' -jar /files/HentaiAtHome.jar '$HathPort' '$HathDirs' '$HathProxy' '$HathArgs''
+HathStart='java '$JvmArgs' -jar /files/HentaiAtHome.jar '$HathPort' '$HathDirs' '$HathProxy' '$HathArgs''
 echo $(date) 本次 H@H 客户端执行命令如下
-echo $(date) $CMD
-$CMD
+echo $(date) $HathStart
+$HathStart

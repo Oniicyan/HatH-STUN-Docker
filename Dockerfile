@@ -1,8 +1,8 @@
 FROM alpine AS builder
 
 RUN mkdir -p /files \
-    && arch \
-    && wget https://github.com/heiher/natmap/releases/latest/download/natmap-linux-$(arch) -O /files/natmap \
+    && case arch in x86_64) ARCH=x86_64;; armv7l) ARCH=arm32;; aarch64) ARCH=arm64;; ppc64le) ARCH=powerpc64;; esac \
+    && wget https://github.com/heiher/natmap/releases/latest/download/natmap-linux-$ARCH -O /files/natmap \
     && wget https://repo.e-hentai.org/hath/HentaiAtHome_1.6.4.zip -O hath.zip \
     && apk --no-cache add unzip \
     && unzip hath.zip HentaiAtHome.jar -d /files
@@ -14,4 +14,4 @@ COPY /files /files
 
 RUN chmod +x /files/* && export PATH=$PATH:/files
 
-CMD ["/files/start.sh"]
+CMD ["start.sh"]

@@ -11,9 +11,6 @@ FROM eclipse-temurin:8-jre-noble AS release
 COPY --from=builder /files /files
 COPY /files /files
 
-RUN apt-get update \
-    && apt-get install -y netcat-openbsd xxd \
-    && rm -rf /var/lib/apt/lists/* \
-    && chmod +x /files/*
+RUN chmod +x /files/* && export PATH=$PATH:/files
 
 CMD ["/files/start.sh"]

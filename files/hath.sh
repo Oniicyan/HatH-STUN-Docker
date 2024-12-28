@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd /hath
+
 # 端口参数
 [ $HathPort ] && HathPort='--port='$HathPort''
 
@@ -17,7 +19,7 @@
 
 # 其他参数
 [ $HathRpc ] && HathArgs=''$HathArgs' --rpc-server-ip='$HathRpc''
-[ $HathSkipSrc ] && HathArgs=''$HathArgs' --disable-ip-origin-check'
+[ $HathSkipIpCheck ] && HathArgs=''$HathArgs' --disable-ip-origin-check'
 
 # JVM 参数
 [ $JvmHttpHost ] && JvmArgs=''$JvmArgs' -Dhttp.proxyHost='$JvmHttpHost''
@@ -32,8 +34,6 @@
 [ $JvmSocksPort ] && JvmArgs=''$JvmArgs' -DsocksProxyPort='$JvmSocksPort''
 [ $JvmSocksUser ] && JvmArgs=''$JvmArgs' -DsocksProxyUser='$JvmSocksUser''
 [ $JvmSocksPass ] && JvmArgs=''$JvmArgs' -DsocksProxyPassword='$JvmSocksPass''
-
-cd /hath
 
 # 获取 RPC 服务器 IP
 ActTime=$(date +%s)

@@ -20,4 +20,4 @@ RUN chmod +x /files/* \
 CMD ["/files/start.sh"]
 
 LABEL org.opencontainers.image.source="https://github.com/Oniicyan/HatH-STUN-Docker"
-LABEL org.opencontainers.image.description="Docker of Hentai@Home (H@H, HatH) with STUN available"
+LABEL org.opencontainers.image.description="Docker of Hentai@Home (H@H, HatH) with STUN (NAT Traversal) available"

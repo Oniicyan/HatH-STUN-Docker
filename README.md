@@ -100,6 +100,26 @@ https://mao.fan/mynat
 
 ![图片](https://github.com/user-attachments/assets/7a0582fc-4e5d-4ff8-bbd5-4c6a0548c1ab)
 
+## 测试代理
+
+Windows 或 Linux 终端下执行 `curl` 确认能否直接访问 `https://e-hentai.org`
+
+`curl -m 5 https://e-hentai.org/hentaiathome.php`
+
+该命令不会有任何反馈，无任何报错则表示成功
+
+若提示超时，则表示需要使用代理
+
+测试以下命令，注意代理的协议、地址与端口
+
+`curl -x socks5://127.0.0.1:10808 -m 5 https://e-hentai.org/hentaiathome.php`
+
+部分代理客户端需要手动添加 `e-hentai.org` 到代理规则
+
+若提示 `curl: (35) schannel: failed to receive handshake, SSL/TLS connection failed`，可尝试使用 **HTTP 代理**
+
+`curl -x http://127.0.0.1:7899 -m 5 https://e-hentai.org/hentaiathome.php`
+
 # 配置 Docker
 
 ## 拉取镜像
@@ -132,7 +152,7 @@ Bridge 模式下，**可能会影响 NAT 类型**，以及进行额外的 NAT，
 
 以下是最常用的示例：Host 网络、启用 STUN 穿透、启用 UPnP
 
-请替换工作目录以及鉴权信息
+请替换**工作目录**、**代理**以及**鉴权信息**
 
 ```
 sudo docker run -d \
@@ -142,12 +162,15 @@ sudo docker run -d \
 -e HathClientId='H@H 客户端 ID' \
 -e HathClientKey='H@H 客户端 密钥' \
 -e Stun=1 \
--e StunIpbId='ipb_member_id' \
+-e StunProxy='socks5://127.0.0.1:10808' \
+-e StunIpbPass='ipb_pass_hash' \
 -e StunIpbPass='ipb_pass_hash' \
 -e Upnp=1 \
 oniicyan99/hentaiathome
 ```
 
-若已配置端口映射，则可删除 `-e Upnp=1`
+若已配置**透明代理**，则可删除 `StunProxy` 行
+
+若已配置**端口映射**，则可删除 `Upnp` 行
 
 ## 变量说明

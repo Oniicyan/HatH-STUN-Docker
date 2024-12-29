@@ -2,6 +2,7 @@
 
 export PATH=$PATH:/files
 
+kill $(ps aux | grep natmap | grep -v grep | awk '{print$2}') 2>/dev/null ||\
 echo 开始执行 Hentai@Home with STUN
 
 # 仅指定已挂载的自定义目录
@@ -78,5 +79,5 @@ if [ $Stun ]; then
 else
 	echo 未启用 STUN 模式，直接启动 H@H 客户端
 	[ $Upnp ] && echo 已启用 UPnP，开始执行 && ADD_UPNP
-	hath.sh
+	[ $(ps aux | grep HentaiAtHome.jar | grep -v grep) ] || hath.sh
 fi

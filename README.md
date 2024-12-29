@@ -20,7 +20,7 @@ https://mao.fan/mynat
 
 **对于家庭宽带**，防火墙通常配置在用户侧设备，只要需要操作用户网关的防火墙即可。
 
-一般推荐的操作方法，优先级从高到底为 **端口映射（或叫“虚拟服务器”） > UPnP > DMZ**。
+一般推荐的操作方法，优先级从高至底为 **端口映射（或叫“虚拟服务器”）> UPnP > DMZ**。
 
 这三个方案的目的都是允许特定端口的入站连接并转发到正确的目标设备上，具体根据场景选择。
 
@@ -50,7 +50,7 @@ https://mao.fan/mynat
 
 ---
 
-## 获取账号 Cookie
+## 获取 E-Hentai 账号 Cookie
 
 **仅在使用 STUN 穿透时需要**
 
@@ -61,3 +61,53 @@ https://mao.fan/mynat
 从 `Cookie` 项目中复制 `ipb_member_id` 与 `ipb_pass_hash`
 
 ![图片](https://github.com/user-attachments/assets/fe5a99a3-238f-45e2-afdb-426c83a70e9b)
+
+## 端口映射
+
+本方案内置了 UPnP 及用户程序转发，本操作不是必要，但为了可靠性，仍希望用户自行配置网关。
+
+**以下为 OpenWrt 下配置端口映射的示例，其他路由器原理一致**
+
+![图片](https://github.com/user-attachments/assets/6d547218-5a66-4c0f-9786-2eb33aa7b5e1)
+
+* `地址族限制`：`仅 IPv4`
+
+  仅针对 IPv4 进行穿透，并非所有路由器都有此选项
+
+* `协议`：`TCP`
+
+* `外部端口`：`44377`
+  
+  本方案默认使用 `44377` 作为 NATMap 的绑定端口；如需变更，请查看 [变量](https://github.com/Oniicyan/HatH-STUN-Docker/edit/main/README.md#%E5%8F%98%E9%87%8F)
+
+* `内部 IP 地址`
+
+  H@H 客户端运行设备的 IPv4 地址，可以是路由器自身的地址（在路由器上运行 Docker）
+  
+* `内部端口`：`44388`
+
+  本方案默认使用 `44388` 作为 H@H 客户端的本地监听端口；如需变更，请查看 [变量](https://github.com/Oniicyan/HatH-STUN-Docker/edit/main/README.md#%E5%8F%98%E9%87%8F)
+
+---
+
+**以下仅限 OpenWrt，其他路由器请忽略**
+
+`目标区域` 与 `内部 IP 地址` 留空则代表路由器自身
+
+![图片](https://github.com/user-attachments/assets/f7c3074c-3f00-4255-9604-839e267301b2)
+
+保存后如下
+
+![图片](https://github.com/user-attachments/assets/7a0582fc-4e5d-4ff8-bbd5-4c6a0548c1ab)
+
+# 配置 Docker
+
+## 拉取
+
+`docker pull oniicyan99/hentaiathome:latest`
+
+## 网络
+
+建议使用 Host 模式，
+
+## 变量

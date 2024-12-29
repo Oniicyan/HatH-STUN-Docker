@@ -263,7 +263,7 @@ oniicyan99/hentaiathome
 | UpnpInPort | 映射规则的内部端口 | 启用 STUN 时为 `StunHathPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
 | UpnpExPort | 映射规则的外部端口 | 启用 STUN 时为 `StunBindPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
 | UpnpUrl | UPnP 设备描述文件 (XML) 的 URL<br>用作绕过发现过程，通常在 Bridge 模式下需要 | 无 |
-| Upnp | [MiniUPnPc 其他参数](https://manpages.debian.org/unstable/miniupnpc/upnpc.1.en.html)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
+| UpnpArgs | [MiniUPnPc 其他参数](https://manpages.debian.org/unstable/miniupnpc/upnpc.1.en.html)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
 
 ## JVM
 

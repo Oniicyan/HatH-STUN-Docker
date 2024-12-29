@@ -2,6 +2,8 @@
 
 export PATH=$PATH:/files
 
+echo 开始执行 Hentai@Home with STUN
+
 # 仅指定已挂载的自定义目录
 [ -d /hath_cache ] && export HathCache=/hath_cache && echo 已指定自定义缓存目录
 [ -d /hath_data ] && export HathData=/hath_data && echo 已指定自定义数据目录

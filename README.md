@@ -236,7 +236,7 @@ oniicyan99/hentaiathome
 | HathLog | 日志目录 | `./log` |
 | HathTemp | 临时目录 | `./tmp` |
 | HathRpc | [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)，一般用作代理规则 | 自动获取 |
-| HathSkipIpCheck | 跳过请求地址检测<br>[用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun) 时，请求地址会变成 `127.0.0.1` 或 `172.16.0.1` 等<br>需要跳过检测 | 不启用<br>使用 `STUN 转发模式` 时自动启用 |
+| HathSkipIpCheck | 跳过请求地址检测<br>[用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun) 时，请求地址会变成 `127.0.0.1` 或 `172.16.0.1` 等，需要跳过检测 | 不启用<br>使用 `STUN 转发模式` 时自动启用 |
 | HathArgs | [H@H 客户端其他参数](https://ehwiki.org/wiki/Hentai@Home#Software)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
 
 ## STUN

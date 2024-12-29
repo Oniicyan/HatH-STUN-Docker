@@ -102,6 +102,8 @@ https://mao.fan/mynat
 
 ## 测试代理
 
+**代理仅在启用 STUN 穿透时必要**
+
 Windows 或 Linux 终端下执行 `curl` 确认能否直接访问 `https://e-hentai.org`
 
 `curl -m 5 https://e-hentai.org/hentaiathome.php`
@@ -112,6 +114,8 @@ Windows 或 Linux 终端下执行 `curl` 确认能否直接访问 `https://e-hen
 
 **注意，即使测试成功，也不代表透明代理涵括 Docker 运行设备**
 
+**同时，确保透明代理不会转发 RPC 服务器 IP（后述），否则将提识别理服务器 IP 作为 H@H 客户端**
+
 测试以下命令，注意代理的协议、地址与端口
 
 `curl -x socks5://127.0.0.1:10808 -m 5 https://e-hentai.org/hentaiathome.php`
@@ -121,6 +125,29 @@ Windows 或 Linux 终端下执行 `curl` 确认能否直接访问 `https://e-hen
 若提示 `curl: (35) schannel: failed to receive handshake, SSL/TLS connection failed`，可尝试使用 **HTTP 代理**
 
 `curl -x http://127.0.0.1:7899 -m 5 https://e-hentai.org/hentaiathome.php`
+
+### 关于图库代理
+
+除了 STUN 模式下获取与更新端口信息需要使用代理外，也可为 H@H 客户端下载图库时配置代理
+
+H@H 客户端默认直连下载图库，但在部分地区容易出现缺图或等待时间长的现象，建议配置代理
+
+H@H 客户端配置代理有 3 种途径
+
+1. 客户端代理
+   使用 H@H 客户端内置的代理支持，首选
+3. JVM 代理
+   使用 Java 虚拟机内置的代理支持
+5. 全局透明代理
+   用户网关或宿主设备上配置了拦截流量的全局代理
+
+H@H 客户端在运行时，会与 RPC 服务器通信，服务器会检测连接时的 IP 作为 H@H 客户端地址
+
+**若与 RPC 服务器通信时使用了代理，则会识别为代理服务器的 IP，导致 H@H 无法正常分发**
+
+在使用 **客户端代理** 时，会自动绕过 RPC 服务器
+
+在使用 **JVM 代理** 与 **全局透明代理** 时，请注意绕过 **RPC 服务器 IP**，IP 列表会在首次启动后保存至 `/hath/rpc_server_ip.txt`
 
 # 配置 Docker
 
@@ -152,9 +179,9 @@ Bridge 模式下，**可能会影响 NAT 类型**，以及进行额外的 NAT，
 
 ## 执行示例
 
-以下是最常用的示例：Host 网络、启用 STUN 穿透、启用 UPnP
+以下是最常用的示例：Host 网络、启用图库代理、启用 STUN 穿透、启用 UPnP
 
-请替换 **工作目录**、**代理** 以及 **鉴权信息**
+请替换 **工作目录**、**代理信息** 以及 **鉴权信息**
 
 ```
 sudo docker run -d \
@@ -163,6 +190,9 @@ sudo docker run -d \
 -v /工作目录:/hath \
 -e HathClientId='H@H 客户端 ID' \
 -e HathClientKey='H@H 客户端 密钥' \
+-e HathProxyType='socks' \
+-e HathProxyHost='127.0.0.1' \
+-e HathProxyPort='10808' \
 -e Stun=1 \
 -e StunProxy='socks5://127.0.0.1:10808' \
 -e StunIpbPass='ipb_pass_hash' \
@@ -171,8 +201,8 @@ sudo docker run -d \
 oniicyan99/hentaiathome
 ```
 
-若已配置 **透明代理**，则可删除 `StunProxy` 行
-
 若已配置 **端口映射**，则可删除 `Upnp` 行
+
+若已配置 **透明代理**，则可删除 `StunProxy` 行
 
 ## 变量说明

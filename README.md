@@ -152,7 +152,7 @@ H@H 客户端在运行时，会与 RPC 服务器通信，服务器会检测连�
 
 在使用 **客户端代理** 时，会自动绕过 RPC 服务器
 
-在使用 **JVM 代理** 与 **全局透明代理** 时，请注意绕过 **[RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)**，IP 列表会在首次启动后保存至 `/hath/rpc_server_ip.txt`
+在使用 **JVM 代理** 与 **全局透明代理** 时，请注意绕过 **[RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)**，IP 列表会在启动后保存至 `/hath/rpc_server_ip.txt`
 
 # 配置 Docker
 

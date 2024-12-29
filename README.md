@@ -203,6 +203,6 @@ oniicyan99/hentaiathome
 
 若已配置 **端口映射**，则可删除 `Upnp` 行
 
-若已配置 **透明代理**，则可删除 `StunProxy` 行
+若已配置 **全局代理**，则可删除 `HathProxyType` `HathProxyHost` `HathProxyPort` `StunProxy` 行
 
 ## 变量说明

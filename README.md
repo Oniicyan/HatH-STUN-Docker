@@ -102,12 +102,52 @@ https://mao.fan/mynat
 
 # 配置 Docker
 
-## 拉取
+## 拉取镜像
 
 `docker pull oniicyan99/hentaiathome:latest`
 
-## 网络
+## 网络配置
 
-建议使用 Host 模式，
+建议使用 Host 模式，特别是启用 UPnP 时。
 
-## 变量
+Bridge 模式下，**可能会影响 NAT 类型**，以及进行额外的 NAT，尽管绝大部分情况下对性能的损耗可以忽略。
+
+## 目录配置
+
+大多数情况下，只需要创建新目录或把原有 H@H 目录挂载至 `/hath`，H@H 客户端会自动创建或使用该目录下的 `cache` `data` `download` `log` `temp` 子目录。
+
+`-v /工作目录:/hath`
+
+如要指定自定义目录，请额外挂载以下目标路径
+
+```
+-v /缓存目录:/hath_cache
+-v /数据目录:/hath_data
+-v /下载目录:/hath_download
+-v /日志目录:/hath_log
+-v /临时目录:/hath_temp
+```
+
+## 执行示例
+
+以下是最常用的示例：Host 网络、启用 STUN 穿透、启用 UPnP
+
+请替换工作目录以及鉴权信息
+
+```
+sudo docker run -d \
+--name hath \
+--net host \
+-v /工作目录:/hath \
+-e HathClientId='H@H 客户端 ID' \
+-e HathClientKey='H@H 客户端 密钥' \
+-e Stun=1 \
+-e StunIpbId='ipb_member_id' \
+-e StunIpbPass='ipb_pass_hash' \
+-e Upnp=1 \
+oniicyan99/hentaiathome
+```
+
+若已配置端口映射，则可删除 `-e Upnp=1`
+
+## 变量说明

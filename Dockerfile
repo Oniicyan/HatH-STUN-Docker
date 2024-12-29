@@ -1,3 +1,6 @@
+LABEL org.opencontainers.image.source="https://github.com/Oniicyan/HatH-STUN-Docker"
+LABEL org.opencontainers.image.description="Dockerfile of Hentai@Home with STUN available"
+
 FROM alpine AS builder
 
 RUN mkdir -p /files \
@@ -13,12 +16,8 @@ COPY --from=builder /files /files
 COPY /files /files
 
 RUN chmod +x /files/* \
-    && export PATH=$PATH:/files \
     && apt-get update \
     && apt-get install -y miniupnpc \
     && rm -rf /var/lib/apt/lists/*
 
 CMD ["start.sh"]
-
-LABEL org.opencontainers.image.source="https://github.com/Oniicyan/HatH-STUN-Docker"
-LABEL org.opencontainers.image.description="Dockerfile of Hentai@Home with STUN available"

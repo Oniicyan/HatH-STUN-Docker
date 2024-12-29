@@ -26,7 +26,13 @@ https://mao.fan/mynat
 
 若目标设备已获得 NAT1，则以上操作可省略，但**仍建议使用网关进行 NAT 以实现更高的性能**。
 
-**对于运营商配置的家庭网关**，DMZ 或 UPnP 的配置可能需要超级管理员权限，但**端口映射通常可以通过用户权限进行配置**。
+**对于运营商配置的家庭网关（光猫）**，DMZ 或 UPnP 的配置可能需要超级管理员权限，但**端口映射通常可以通过用户权限进行配置**。
+
+注意，每层网关都要确保端口正确转发。常见的情况是光猫拨号，下面再接一个路由器。这种情况需要光猫与路由器都配置端口转发。
+
+比较推荐的方案是光猫桥接，路由器拨号，次选是光猫配置 DMZ 到路由器。
+
+Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT 层数。
 
 **对于蜂窝移动网络**，防火墙通常配置在运营商侧设备，用户无权限操作。因此当检测结果不为 NAT1 时，则无法穿透。
 
@@ -212,3 +218,21 @@ oniicyan99/hentaiathome
 
 本 Docker 为确保灵活性，支持大量自定义变量，可根据使用场景进行定制
 
+## H@H 客户端
+
+| 名称 | 必需 | 说明 | 默认 |
+| --- | --- | --- | --- |
+| HathClientId | 否 | H@H 客户端 ID | 读取 `./data/client_login` |
+| HathClientKey | 否 | H@H 客户端密钥 | 读取 `./data/client_login` |
+| HathProxyHost | 否 | 客户端代理地址 | 不启用 |
+| HathProxyType | 否 | 客户端代理类型，可用值 `socks` 或 `http`  | `socks` |
+| HathProxyPort | 否 | 客户端代理端口 | `socks` 为 `1080` <br> `http` 为 `8080` |
+| HathCache | 否 | 缓存目录 | `./cache` |
+| HathData | 否 | 数据目录 | `./data` |
+| HathDownload | 否 | 下载目录 | `./download` |
+| HathLog | 否 | 日志目录 | `./log` |
+| HathTemp | 否 | 临时目录 | `./tmp` |
+| HathPort | 否 | 监听端口 | 从 RPC 服务器获取端口<br>STUN 模式下重写为 `StunHathPort` |
+| HathRpc | 否 | [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)，一般用作代理规则 | 自动获取 |
+| HathSkipIpCheck | 否 | 跳过请求地址检测<br>用户程序转发时，请求地址会变成 `127.0.0.1` 或 `192.168.1.1`等<br>需要跳过检测 | 不启用<br>使用 `STUN 转发模式` 时自动启用 |
+| HathArgs | 否 | 其他参数，请查阅 [EHWiki](https://ehwiki.org/wiki/Hentai@Home#Software)<br>为避免 `-` 号被解释，建议内容用单引号包围 | 无 |

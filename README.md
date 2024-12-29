@@ -199,7 +199,7 @@ sudo docker run -d \
 -e HathProxyPort='10808' \
 -e Stun=1 \
 -e StunProxy='socks5://127.0.0.1:10808' \
--e StunIpbPass='ipb_pass_hash' \
+-e StunIpbId='ipb_member_id' \
 -e StunIpbPass='ipb_pass_hash' \
 -e Upnp=1 \
 oniicyan99/hentaiathome

@@ -2,7 +2,7 @@ name: Publish Docker image
 on:
   workflow_dispatch:
 env:
-  REGISTRY: docker.io
+  REGISTRY: ghcr.io
   IMAGE: oniicyan/hentaiathome
 jobs:
   push_to_registry:

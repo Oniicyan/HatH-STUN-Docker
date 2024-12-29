@@ -71,7 +71,7 @@ if [ $Stun ]; then
 		export HathSkipIpCheck=1
 	fi
 	[ $Upnp ] && echo 已启用 UPnP，开始执行 && ADD_UPNP
-	NatmapStart='natmap -d -4 -s '$StunServer' -h '$StunHttpServer' -b '$StunBindPort' -k '$StunInterval' '$StunInterface' '$StunForward' -e natmap.sh'
+	NatmapStart='natmap -d -4 -s '$StunServer' -h '$StunHttpServer' -b '$StunBindPort' -k '$StunInterval' '$StunInterface' '$StunForward' -e /files/natmap.sh'
 	echo 本次 NATMap 执行命令
 	echo $NatmapStart
 	$NatmapStart

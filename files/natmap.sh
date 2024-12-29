@@ -8,6 +8,8 @@ EHIPBPW=$StunIpbPass
 WANADDR=$1
 WANPORT=$2
 
+echo 当前穿透通道为 $WANADDR:$WANPORT，即将更新 H@H 客户端设置信息
+
 [ $StunProxy ] || echo STUN 模式未配置代理，请留意 H@H 客户端设置信息能否获取与更新
 [ $StunProxy ] && PROXY='-x '$StunProxy''
 

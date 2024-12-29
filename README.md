@@ -114,7 +114,7 @@ Windows 或 Linux 终端下执行 `curl` 确认能否直接访问 `https://e-hen
 
 **注意，即使测试成功，也不代表透明代理涵括 Docker 运行设备**
 
-**同时，确保透明代理不会转发 RPC 服务器 IP（后述），否则将提识别理服务器 IP 作为 H@H 客户端**
+**同时，确保透明代理不会转发 [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)（后述），否则将提识别理服务器 IP 作为 H@H 客户端**
 
 测试以下命令，注意代理的协议、地址与端口
 
@@ -146,7 +146,7 @@ H@H 客户端在运行时，会与 RPC 服务器通信，服务器会检测连�
 
 在使用 **客户端代理** 时，会自动绕过 RPC 服务器
 
-在使用 **JVM 代理** 与 **全局透明代理** 时，请注意绕过 **RPC 服务器 IP**，IP 列表会在首次启动后保存至 `/hath/rpc_server_ip.txt`
+在使用 **JVM 代理** 与 **全局透明代理** 时，请注意绕过 **[RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)**，IP 列表会在首次启动后保存至 `/hath/rpc_server_ip.txt`
 
 # 配置 Docker
 
@@ -209,3 +209,6 @@ oniicyan99/hentaiathome
 若已配置 **全局代理**，则可删除 `HathProxyType` `HathProxyHost` `HathProxyPort` `StunProxy` 行
 
 ## 变量说明
+
+本 Docker 为确保灵活性，支持大量自定义变量，可根据使用场景进行定制
+

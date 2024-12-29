@@ -40,7 +40,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 *蜂窝移动网络的 IPv6 入站连接也受运营商侧防火墙限制*
 
-**对于无网关操作权限的**，本方案也提供了 UPnP 及用户程序转发（仅限 NAT1）协助实现最大限度的穿透可能性。
+**对于无网关操作权限的**，本方案也提供了 UPnP 及 [用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun)（仅限 NAT1）协助实现最大限度的穿透可能性。
 
 # 准备工作
 
@@ -70,7 +70,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 ## 端口映射
 
-本方案内置了 UPnP 及用户程序转发，本操作不是必要，但为了可靠性，仍希望用户自行配置网关
+本方案内置了 UPnP 及 [用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun)，本操作不是必要，但为了可靠性，仍希望用户自行配置网关
 
 **以下为 OpenWrt 下配置端口映射的示例，其他路由器原理一致**
 
@@ -84,7 +84,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 * `外部端口`：`44377`
   
-  本方案默认使用 `44377` 作为 NATMap 的绑定端口；如需变更，请查看 [变量](https://github.com/Oniicyan/HatH-STUN-Docker/edit/main/README.md#stun)
+  本方案默认使用 `44377` 作为 NATMap 的绑定端口；如需变更，请查看 [STUN 变量](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
 
 * `内部 IP 地址`
 
@@ -92,7 +92,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
   
 * `内部端口`：`44388`
 
-  本方案默认使用 `44388` 作为 H@H 客户端的本地监听端口；如需变更，请查看 [变量](https://github.com/Oniicyan/HatH-STUN-Docker/edit/main/README.md#stun)
+  本方案默认使用 `44388` 作为 H@H 客户端的本地监听端口；如需变更，请查看 [STUN 变量](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
 
 ---
 
@@ -140,9 +140,9 @@ H@H 客户端默认直连下载图库，但在部分地区容易出现缺图或�
 
 H@H 客户端配置代理有 3 种途径
 
-1. **客户端代理**：使用 H@H 客户端内置的代理支持，首选
+1. **客户端代理**：使用 [H@H 客户端内置的代理支持](https://github.com/Oniicyan/HatH-STUN-Docker#hh)，首选
 
-3. **JVM 代理**：使用 Java 虚拟机内置的代理支持
+3. **JVM 代理**：使用 [Java 虚拟机内置的代理支持](https://github.com/Oniicyan/HatH-STUN-Docker#jvm)
 
 5. **全局透明代理**：用户网关或宿主设备上配置了拦截流量的全局代理
 
@@ -218,23 +218,69 @@ oniicyan99/hentaiathome
 
 本 Docker 为确保灵活性，支持大量自定义变量，可根据使用场景进行定制
 
+**不启用的变量请留空**；指定任何字符串，包括 `0` 或 `off`，将启用该变量
+
 ## H@H
 
-| 名称 | 必需 | 说明 | 默认 |
-| --- | --- | --- | --- |
-| HathClientId | 否 | H@H 客户端 ID | 读取 `./data/client_login` |
-| HathClientKey | 否 | H@H 客户端密钥 | 读取 `./data/client_login` |
-| HathProxyHost | 否 | 客户端代理地址 | 不启用 |
-| HathProxyType | 否 | 客户端代理类型，可用值为 `socks` 或 `http`  | `socks` |
-| HathProxyPort | 否 | 客户端代理端口 | `socks` 为 `1080` <br> `http` 为 `8080` |
-| HathCache | 否 | 缓存目录 | `./cache` |
-| HathData | 否 | 数据目录 | `./data` |
-| HathDownload | 否 | 下载目录 | `./download` |
-| HathLog | 否 | 日志目录 | `./log` |
-| HathTemp | 否 | 临时目录 | `./tmp` |
-| HathPort | 否 | H@H 客户端监听端口 | 从 RPC 服务器获取<br>STUN 模式下重写为 `StunHathPort` |
-| HathRpc | 否 | [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)，一般用作代理规则 | 自动获取 |
-| HathSkipIpCheck | 否 | 跳过请求地址检测<br>用户程序转发时，请求地址会变成 `127.0.0.1` 或 `192.168.1.1`等<br>需要跳过检测 | 不启用<br>使用 `STUN 转发模式` 时自动启用 |
-| HathArgs | 否 | 其他参数，请查阅 [EHWiki](https://ehwiki.org/wiki/Hentai@Home#Software)<br>为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
+| 名称 | 说明 | 默认 |
+| --- | --- | --- |
+| HathClientId | H@H 客户端 ID | 读取 `./data/client_login` |
+| HathClientKey | H@H 客户端密钥 | 读取 `./data/client_login` |
+| HathProxyHost | H@H 客户端代理地址 | 不启用 |
+| HathProxyType | H@H 客户端代理类型，可用值为 `socks` 或 `http`  | `socks` |
+| HathProxyPort | H@H 客户端代理端口 | `socks` 为 `1080` <br> `http` 为 `8080` |
+| HathPort | H@H 客户端监听端口 | 从 RPC 服务器获取<br>[STUN](https://github.com/Oniicyan/HatH-STUN-Docker#stun) 模式下重写为 `StunHathPort` |
+| HathCache | 缓存目录 | `./cache` |
+| HathData | 数据目录 | `./data` |
+| HathDownload | 下载目录 | `./download` |
+| HathLog | 日志目录 | `./log` |
+| HathTemp | 临时目录 | `./tmp` |
+| HathRpc | [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)，一般用作代理规则 | 自动获取 |
+| HathSkipIpCheck | 跳过请求地址检测<br>[用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun) 时，请求地址会变成 `127.0.0.1` 或 `172.16.0.1` 等<br>需要跳过检测 | 不启用<br>使用 `STUN 转发模式` 时自动启用 |
+| HathArgs | [H@H 客户端其他参数](https://ehwiki.org/wiki/Hentai@Home#Software)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
 
 ## STUN
+
+| 名称 | 说明 | 默认 |
+| --- | --- | --- |
+| Stun | STUN 开关 | 不启用 |
+| StunServer | STUN 服务器；[域名列表](https://oniicyan.pages.dev/stun_servers_domain.txt)、[IP 列表](https://oniicyan.pages.dev/stun_servers_ipv4.txt) | `turn.cloudflare.com` |
+| StunHttpServer | 穿透通道保持用的 HTTP 服务器 | `qq.com` |
+| StunBindPort | NATMap 绑定端口 | `44377` |
+| StunHathPort | H@H 客户端监听端口 | `44388` |
+| StunInterval | 穿透通道保活间隔（秒） | `25` |
+| StunInterface | NATMap 绑定接口 | 不启用 |
+| StunForward | NATMap 转发开关 | 不启用 |
+| StunForwardAddr | NATMap 转发的目标地址（目标端口为 `StunHathPort`）| `127.0.0.1` |
+| StunArgs | [NATMap 其他参数](https://github.com/heiher/natmap#how-to-use)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
+
+# UPnP
+
+| 名称 | 说明 | 默认 |
+| --- | --- | --- |
+| Upnp | UPnP 开关 | 不启用 |
+| UpnpAddr | 映射规则的目标地址 | `@`，即自动检测本机地址 |
+| UpnpInPort | 映射规则的内部端口 | 启用 STUN 时为 `StunHathPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
+| UpnpExPort | 映射规则的外部端口 | 启用 STUN 时为 `StunBindPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
+| UpnpUrl | UPnP 设备描述文件 (XML) 的 URL<br>用作绕过发现过程，通常在 Bridge 模式下需要 | 无 |
+| Upnp | [MiniUPnPc 其他参数](https://manpages.debian.org/unstable/miniupnpc/upnpc.1.en.html)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
+
+# JVM
+
+**部分协议可能不支持鉴权，请查阅 [Java Docs](https://docs.oracle.com/javase/8/docs/technotes/guides/net/proxies.html)**
+
+| 名称 | 说明 | 默认 |
+| --- | --- | --- |
+| JvmHttpHost | Java 虚拟机 HTTP 代理地址 | 无 |
+| JvmHttpPort | Java 虚拟机 HTTP 代理端口 | 无 |
+| JvmHttpUser | Java 虚拟机 HTTP 代理账号 | 无 |
+| JvmHttpPass | Java 虚拟机 HTTP 代理密码 | 无 |
+| JvmHttpsHost | Java 虚拟机 HTTPS 代理地址 | 无 |
+| JvmHttpsPort | Java 虚拟机 HTTPS 代理端口 | 无 |
+| JvmHttpsUser | Java 虚拟机 HTTPS 代理账号 | 无 |
+| JvmHttpsPass | Java 虚拟机 HTTPS 代理密码 | 无 |
+| JvmSocksHost | Java 虚拟机 SOCKS 代理地址 | 无 |
+| JvmSocksPort | Java 虚拟机 SOCKS 代理端口 | 无 |
+| JvmSocksUser | Java 虚拟机 SOCKS 代理账号 | 无 |
+| JvmSocksPass | Java 虚拟机 SOCKS 代理密码 | 无 |
+| JvmArgs | [JVM 其他参数](https://docs.oracle.com/cd/E22289_01/html/821-1274/configuring-the-default-jvm-and-java-arguments.html)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |

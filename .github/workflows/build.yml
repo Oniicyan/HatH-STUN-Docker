@@ -35,6 +35,3 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE }}:latest
           cache-from: type=gha,scope=${{ github.workflow }}
           cache-to: type=gha,mode=max,scope=${{ github.workflow }}
-          annotations: |
-            org.opencontainers.image.source=https://github.com/Oniicyan/HatH-STUN-Docker
-            org.opencontainers.image.description=Dockerfile of Hentai@Home with STUN (arm,x64,x86)

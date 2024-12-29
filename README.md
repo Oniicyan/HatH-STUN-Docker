@@ -214,13 +214,13 @@ oniicyan99/hentaiathome
 
 若已配置 **全局代理**，则可删除 `HathProxyType` `HathProxyHost` `HathProxyPort` `StunProxy` 行
 
-## 变量说明
+# 变量说明
 
 本 Docker 为确保灵活性，支持大量自定义变量，可根据使用场景进行定制
 
 **不启用的变量请留空**；指定任何字符串，包括 `0` 或 `off`，将启用该变量
 
-### H@H
+## H@H
 
 | 名称 | 说明 | 默认 |
 | --- | --- | --- |
@@ -239,7 +239,7 @@ oniicyan99/hentaiathome
 | HathSkipIpCheck | 跳过请求地址检测<br>[用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun) 时，请求地址会变成 `127.0.0.1` 或 `172.16.0.1` 等<br>需要跳过检测 | 不启用<br>使用 `STUN 转发模式` 时自动启用 |
 | HathArgs | [H@H 客户端其他参数](https://ehwiki.org/wiki/Hentai@Home#Software)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
 
-### STUN
+## STUN
 
 | 名称 | 说明 | 默认 |
 | --- | --- | --- |
@@ -254,7 +254,7 @@ oniicyan99/hentaiathome
 | StunForwardAddr | NATMap 转发的目标地址（目标端口为 `StunHathPort`）| `127.0.0.1` |
 | StunArgs | [NATMap 其他参数](https://github.com/heiher/natmap#how-to-use)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
 
-### UPnP
+## UPnP
 
 | 名称 | 说明 | 默认 |
 | --- | --- | --- |
@@ -265,7 +265,7 @@ oniicyan99/hentaiathome
 | UpnpUrl | UPnP 设备描述文件 (XML) 的 URL<br>用作绕过发现过程，通常在 Bridge 模式下需要 | 无 |
 | Upnp | [MiniUPnPc 其他参数](https://manpages.debian.org/unstable/miniupnpc/upnpc.1.en.html)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
 
-### JVM
+## JVM
 
 **部分协议可能不支持鉴权，请查阅 [Java Docs](https://docs.oracle.com/javase/8/docs/technotes/guides/net/proxies.html)**
 

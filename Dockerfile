@@ -20,5 +20,5 @@ RUN chmod +x /files/* \
 
 CMD ["start.sh"]
 
-LABEL org.opencontainers.image.source=https://github.com/Oniicyan/HatH-STUN-Docker
-LABEL org.opencontainers.image.description=Dockerfile of Hentai@Home with STUN available
+LABEL org.opencontainers.image.source="https://github.com/Oniicyan/HatH-STUN-Docker"
+LABEL org.opencontainers.image.description="Dockerfile of Hentai@Home with STUN available"

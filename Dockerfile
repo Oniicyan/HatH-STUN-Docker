@@ -19,3 +19,6 @@ RUN chmod +x /files/* \
     && rm -rf /var/lib/apt/lists/*
 
 CMD ["start.sh"]
+
+LABEL org.opencontainers.image.source=https://github.com/Oniicyan/HatH-STUN-Docker
+LABEL org.opencontainers.image.description=Dockerfile of Hentai@Home with STUN

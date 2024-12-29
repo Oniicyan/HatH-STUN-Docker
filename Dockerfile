@@ -1,6 +1,3 @@
-LABEL org.opencontainers.image.source="https://github.com/Oniicyan/HatH-STUN-Docker"
-LABEL org.opencontainers.image.description="Dockerfile of Hentai@Home with STUN available"
-
 FROM alpine AS builder
 
 RUN mkdir -p /files \
@@ -21,3 +18,6 @@ RUN chmod +x /files/* \
     && rm -rf /var/lib/apt/lists/*
 
 CMD ["start.sh"]
+
+LABEL org.opencontainers.image.source="https://github.com/Oniicyan/HatH-STUN-Docker"
+LABEL org.opencontainers.image.description="Docker of Hentai@Home with STUN available"

@@ -41,13 +41,13 @@ ActKey=$(echo -n "hentai@home-client_settings--$HathClientId-$ActTime-$HathClien
 RpcServerIp=$(curl -Ls 'http://rpc.hentaiathome.net/15/rpc?clientbuild=169&act=client_settings&add=&cid='$HathClientId'&acttime='$ActTime'&actkey='$ActKey'' | grep rpc_server_ip)
 if [ $RpcServerIp ]; then
 	echo $RpcServerIp | grep -oE '([0-9]*\.?){4}' >/hath/rpc_server_ip.txt
-	echo [$(date)] 获取 RPC 服务器 IP 成功，保存至 rpc_server_ip.txt
+	echo 获取 RPC 服务器 IP 成功，保存至 rpc_server_ip.txt
 else
-	echo [$(date)] 获取 RPC 服务器 IP 失败，请留意客户端能否正常启动
+	echo 获取 RPC 服务器 IP 失败，请留意客户端能否正常启动
 fi
 
 # 启动 H@H 客户端
 HathStart='java '$JvmArgs' -jar /files/HentaiAtHome.jar '$HathPort' '$HathDirs' '$HathProxy' '$HathArgs''
-echo [$(date)] 本次 H@H 客户端执行命令
-echo [$(date)] $HathStart
+echo 本次 H@H 客户端执行命令
+echo $HathStart
 $HathStart

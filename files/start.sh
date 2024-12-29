@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export PATH=$PATH:/files
+
 # 仅指定已映射的自定义目录
 [ -d /hath_cache ] && export HathCache=/hath_cache && echo [$(date)] 已指定自定义缓存目录
 [ -d /hath_data ] && export HathData=/hath_data && echo [$(date)] 已指定自定义数据目录

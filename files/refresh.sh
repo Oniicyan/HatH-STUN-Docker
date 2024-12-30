@@ -74,4 +74,4 @@ done
 # 若客户端已启动，则自动恢复连接，无需重启
 # 若客户端未启动，client_suspend 与 client_start 不会造成实质影响
 [ $SKIP ] || ACTION client_start >/dev/null
-# [ $(ps aux | grep HentaiAtHome | grep -v grep) ] || hath.sh
+# ps aux | grep HentaiAtHome | grep -v grep >/dev/null || hath.sh

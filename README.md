@@ -218,7 +218,7 @@ oniicyan99/hentaiathome
 
 若端口更新过程中出错，但 H@H 客户端仍未离线，可执行以下命令刷新状态
 
-`docker exec hath /files/start.sh`
+`docker exec hath start.sh`
 
 **若 H@H 客户端已离线，请重启容器**
 

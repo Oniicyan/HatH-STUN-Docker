@@ -18,7 +18,7 @@ RUN chmod +x /files/* \
     && apt-get install -y miniupnpc \
     && rm -rf /var/lib/apt/lists/*
 
-CMD ["/start.sh"]
+CMD ["start.sh"]
 
 LABEL org.opencontainers.image.source="https://github.com/Oniicyan/HatH-STUN-Docker"
 LABEL org.opencontainers.image.description="Docker of Hentai@Home (H@H, HatH) client with STUN (NAT Traversal) support"

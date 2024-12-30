@@ -2,11 +2,11 @@
 
 echo 开始刷新 Hentai@Home with STUN
 
+[ $HathData ] || HathData=/hath/data
 HATHCID=$HathClientId
 HATHKEY=$HathClientKey
-EHIPBID=$StunIpbId
-EHIPBPW=$StunIpbPass
-
+EHIPBID=$(awk -F '-' '{print$1}' $HathData/client_login)
+EHIPBPW=$(awk -F '-' '{print$2}' $HathData/client_login)
 WANPORT=$(cat /files/WANPORT)
 
 [ $StunProxy ] || echo STUN 模式未配置代理，请留意 H@H 客户端设置信息能否获取与更新

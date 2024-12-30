@@ -17,6 +17,7 @@ echo 当前穿透通道为 $WANADDR:$WANPORT，即将更新 H@H 客户端设置�
 touch /hath/stun.log
 [ $(wc -l </hath/stun.log) -ge 1000 ] && mv /hath/stun.log /hath/stun.log.old
 echo [$(date)] $WANADDR:$WANPORT '->' $HathPort >>/hath/stun.log
+echo $WANPORT >/files/WANPORT
 
 # 获取 H@H 客户端设置信息
 while [ -z $f_cname ]; do
@@ -80,4 +81,4 @@ done
 # 若客户端已启动，则自动恢复连接，无需重启
 # 若客户端未启动，client_suspend 与 client_start 不会造成实质影响
 [ $SKIP ] || ACTION client_start >/dev/null
-[ $(ps aux | grep HentaiAtHome.jar | grep -v grep) ] || hath.sh
+[ $(ps aux | grep HentaiAtHome | grep -v grep) ] || hath.sh

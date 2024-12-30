@@ -11,13 +11,14 @@ FROM eclipse-temurin:8-jre-noble AS release
 
 COPY --from=builder /files /files
 COPY /files /files
+ENV PATH="$PATH:/files"
 
 RUN chmod +x /files/* \
     && apt-get update \
     && apt-get install -y miniupnpc \
     && rm -rf /var/lib/apt/lists/*
 
-CMD ["/files/start.sh"]
+CMD ["/start.sh"]
 
 LABEL org.opencontainers.image.source="https://github.com/Oniicyan/HatH-STUN-Docker"
 LABEL org.opencontainers.image.description="Docker of Hentai@Home (H@H, HatH) with STUN (NAT Traversal) available"

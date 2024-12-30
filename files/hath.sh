@@ -13,8 +13,8 @@ cd /hath
 [ $HathTemp ] && HathDirs=''$HathDirs' --temp-dir='$HathTemp''
 
 # 代理参数
-[ $HathProxyType ] && HathProxy=''$HathProxy' --image-proxy-type='$HathProxyType''
 [ $HathProxyHost ] && HathProxy=''$HathProxy' --image-proxy-host='$HathProxyHost''
+[ $HathProxyType ] && HathProxy=''$HathProxy' --image-proxy-type='$HathProxyType''
 [ $HathProxyPort ] && HathProxy=''$HathProxy' --image-proxy-port='$HathProxyPort''
 
 # 其他参数

@@ -294,7 +294,7 @@ oniicyan99/hentaiathome
 | 名称 | 说明 | 默认 |
 | --- | --- | --- |
 | Upnp | UPnP 开关 | 不启用 |
-| UpnpAddr | 映射规则的目标地址 | `@`，即自动检测本机地址 |
+| UpnpAddr | 映射规则的目标地址<br>Bridge 网络下请填写宿主的 IP 地址 | `@`，即自动检测本机地址 |
 | UpnpInPort | 映射规则的内部端口 | 启用 STUN 时为 `StunHathPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
 | UpnpExPort | 映射规则的外部端口 | 启用 STUN 时为 `StunBindPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
 | UpnpUrl | UPnP 设备描述文件 (XML) 的 URL<br>用作绕过发现过程，通常在 Bridge 模式下需要 | 无 |

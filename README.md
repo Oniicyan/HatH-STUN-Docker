@@ -72,7 +72,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 本方案内置了 UPnP 及 [用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun)，本操作不是必要，但为了可靠性，仍希望用户自行配置网关
 
-**以下为 OpenWrt 下配置端口映射的示例，其他路由器原理一致**
+**以下为 OpenWrt 下，针对 Host 网络配置端口映射的示例，其他路由器原理一致**
 
 ![图片](https://github.com/user-attachments/assets/6d547218-5a66-4c0f-9786-2eb33aa7b5e1)
 
@@ -93,6 +93,8 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 * `内部端口`：`44388`
 
   本方案默认使用 `44388` 作为 H@H 客户端的本地监听端口；如需变更，请查看 [STUN 变量](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
+
+  **使用 Bridge 网络时，应与外部端口一致 (`44377`)**
 
 ---
 
@@ -162,9 +164,11 @@ H@H 客户端在运行时，会与 RPC 服务器通信，服务器会检测连�
 
 ## 网络配置
 
-建议使用 Host 模式，特别是启用 UPnP 时
+建议使用 Host 网络，特别是启用 UPnP 时
 
-Bridge 模式下，**可能会影响 NAT 类型**，并需要进行额外的 NAT，尽管绝大部分情况下对性能的损耗可以忽略
+Bridge 网络下，**可能会影响 NAT 类型**，并需要进行额外的 NAT，尽管绝大部分情况下对性能的损耗可以忽略
+
+Bridge 网络下，[端口映射规则](https://github.com/Oniicyan/HatH-STUN-Docker#端口映射) 与 Host 网络不同
 
 ## 目录配置
 
@@ -210,15 +214,38 @@ sudo docker run -d \
 oniicyan99/hentaiathome
 ```
 
-若已配置 **端口映射**，则可删除 `Upnp` 行
+若已配置 **[端口映射](https://github.com/Oniicyan/HatH-STUN-Docker#端口映射)**，则可删除 `Upnp` 行
 
-若已配置 **全局代理**，则可删除 `HathProxyType` `HathProxyHost` `HathProxyPort` `StunProxy` 行
+若已配置 **[全局代理](https://github.com/Oniicyan/HatH-STUN-Docker#测试代理)**，则可删除 `HathProxyType` `HathProxyHost` `HathProxyPort` `StunProxy` 行
+
+---
+
+Bridge 网络、启用客户端代理、启用 STUN 穿透
+
+**请确认已配置 [端口映射](https://github.com/Oniicyan/HatH-STUN-Docker#端口映射)**
+
+```
+sudo docker run -d \
+--name hath \
+-p 44377:44388 \
+-v /工作目录:/hath \
+-e HathClientId='H@H 客户端 ID' \
+-e HathClientKey='H@H 客户端 密钥' \
+-e HathProxyType='socks' \
+-e HathProxyHost='127.0.0.1' \
+-e HathProxyPort='10808' \
+-e Stun=1 \
+-e StunProxy='socks5://127.0.0.1:10808' \
+-e StunIpbId='ipb_member_id' \
+-e StunIpbPass='ipb_pass_hash' \
+oniicyan99/hentaiathome
+```
 
 ---
 
 若端口更新过程中出错，但 H@H 客户端仍未离线，可执行以下命令刷新状态
 
-`docker exec hath start.sh`
+`docker exec hath refresh.sh`
 
 **若 H@H 客户端已离线，请重启容器**
 

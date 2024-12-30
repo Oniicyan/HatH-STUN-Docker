@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export PATH=$PATH:/files
-
 kill $(ps aux | grep natmap | grep -v grep | awk '{print$2}') 2>/dev/null ||\
 echo 开始执行 Hentai@Home with STUN
 
@@ -72,7 +70,7 @@ if [ $Stun ]; then
 		export HathSkipIpCheck=1
 	fi
 	[ $Upnp ] && echo 已启用 UPnP，开始执行 && ADD_UPNP
-	NatmapStart='natmap -4 -s '$StunServer' -h '$StunHttpServer' -b '$StunBindPort' -k '$StunInterval' '$StunInterface' '$StunForward' '$StunArgs' -e /files/natmap.sh'
+	NatmapStart='natmap -4 -s '$StunServer' -h '$StunHttpServer' -b '$StunBindPort' -k '$StunInterval' '$StunInterface' '$StunForward' '$StunArgs' -e natmap.sh'
 	echo 本次 NATMap 执行命令
 	echo $NatmapStart
 	$NatmapStart

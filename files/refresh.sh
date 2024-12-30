@@ -1,5 +1,11 @@
 #!/bin/bash
 
+[ $Stun ] ||\
+(echo 未启用 STUN 模式，不执行刷新 && exit 1)
+
+ps aux | grep natmap | grep -v grep ||\
+(echo NATMap 未在运行，请重启容器 && exit 1)
+
 echo 开始刷新 Hentai@Home with STUN
 
 [ $HathData ] || HathData=/hath/data

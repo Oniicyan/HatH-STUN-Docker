@@ -40,7 +40,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 *蜂窝移动网络的 IPv6 入站连接也受运营商侧防火墙限制*
 
-**对于无网关操作权限的**，本方案也提供了 UPnP 及 [用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun)（仅限 NAT1）协助实现最大限度的穿透可能性。
+**对于无网关操作权限的**，本镜像也提供了 UPnP 及 [用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun)（仅限 NAT1）协助实现最大限度的穿透可能性。
 
 # 准备工作
 
@@ -70,7 +70,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 ## 端口映射
 
-本方案内置了 UPnP 及 [用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun)，本操作不是必要，但为了可靠性，仍希望用户自行配置网关
+本镜像内置了 UPnP 及 [用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun)，此操作不是必要，但为了可靠性，仍希望用户自行配置网关
 
 **以下为 OpenWrt 下，针对 Host 网络配置端口映射的示例，其他路由器原理一致**
 
@@ -84,7 +84,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 * `外部端口`：`44377`
   
-  本方案默认使用 `44377` 作为 NATMap 的绑定端口；如需变更，请查看 [STUN 变量](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
+  本镜像默认使用 `44377` 作为 NATMap 的绑定端口；如需变更，请查看 [STUN 变量](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
 
 * `内部 IP 地址`
 
@@ -92,7 +92,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
   
 * `内部端口`：`44388`
 
-  本方案默认使用 `44388` 作为 H@H 客户端的本地监听端口；如需变更，请查看 [STUN 变量](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
+  本镜像默认使用 `44388` 作为 H@H 客户端的本地监听端口；如需变更，请查看 [STUN 变量](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
 
   **使用 Bridge 网络时，应与外部端口一致 (`44377`)**
 

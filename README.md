@@ -121,6 +121,8 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 * `内部 IP 地址`
 
   H@H 客户端运行设备的 IPv4 地址，可以是路由器自身的地址（在路由器上运行 Docker）
+
+  **使用 Bridge 网络时，应填写宿主 IP 地址**
   
 * `内部端口`：`44388`
 

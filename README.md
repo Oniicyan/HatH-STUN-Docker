@@ -160,39 +160,45 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 3. **策略分流**
 
-   一些用户可能有多个互联网出口（如多线接入），这种情况可以通过代理来实现策略分流
+   一些用户可能有多个互联网接口（如多线接入），这种情况可以通过代理来实现策略分流
 
 ---
 
-本镜像获取与更新 H@H 客户端设置信息时，通过 `curl` 命令的 `-x` 参数使用代理，需要单独配置
-
----
-
-配置下载画廊时的代理有 3 种方法
+本镜像考虑以下 3 种代理手段
 
 1. **客户端代理**
 
-   使用 [H@H 客户端内置的代理支持](https://github.com/Oniicyan/HatH-STUN-Docker#hh)
+   使用 [H@H 客户端内置的代理支持](https://github.com/Oniicyan/HatH-STUN-Docker#hh)，适用于 **下载画廊**
 
-   最容易配置的方案，但目前 H@H 客户端的代理支持仍处于 [实验性阶段](https://forums.e-hentai.org/index.php?showtopic=234458)，可能无法正确使用
+   无需对代理配置额外的规则，但目前 H@H 客户端的代理支持仍处于 [实验性阶段](https://forums.e-hentai.org/index.php?showtopic=234458)，可能无法正确使用
 
-2. **JVM 代理**
+3. **JVM 代理**
 
-   使用 [Java 虚拟机内置的代理支持](https://github.com/Oniicyan/HatH-STUN-Docker#jvm)
+   使用 [Java 虚拟机内置的代理支持](https://github.com/Oniicyan/HatH-STUN-Docker#jvm)，适用于 **下载画廊** 与 **策略分流**
 
-   建议在客户端代理不可用时选择，但需要配置 RPC 服务器 IP 的规则
+   作为下载画廊的代理手段时，需要配置绕过 RPC 服务器 IP 的规则
 
-3. **全局代理**
+   作为策略分流的代理手段时，需要指定互联网接口
+
+5. **全局代理**
 
    用户网关或宿主设备上配置 **拦截流量** 的全局代理（非 **全局路由**）
 
-   使用额外的硬件或软件，同样需要配置 RPC 服务器 IP 的规则
+   **适用于所有场景**，但依赖额外的硬件或软件，并且需要为每种场景配置相应的规则
+
+---
+
+启用 STUN 时，若未配置全局代理，则需要通过 `curl` 命令的 `-x` 参数指定代理
+
+容器需要配置对应的 [STUN 变量](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
+
+---
 
 H@H 客户端在运行时，会与 RPC 服务器通信，服务器检测连接时请求的 IP 作为 H@H 客户端地址
 
 **若与 RPC 服务器通信时使用了代理，则会识别代理服务器的 IP 作为 H@H 客户端地址，导致无法正常提供文件**
 
-在使用 **客户端代理** 时，程序会自动绕过 RPC 服务器
+在使用 **客户端代理** 时，程序会自动绕过 RPC 服务器通信
 
 在使用 **JVM 代理** 与 **全局代理** 时，需自行配置绕过 **[RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)** 的规则
 
@@ -200,11 +206,25 @@ H@H 客户端在运行时，会与 RPC 服务器通信，服务器检测连接�
 
 ---
 
-策略分流通常基于 源/目标地址 与 源/目标端口 等，但由于 JVM 无法通过附加参数指定绑定接口 或 IP，可以通过代理实现
+策略分流可基于 **源 IP 地址** 或 **目的 IP 地址**
+
+**基于 源 IP 地址 进行策略分流时**，由于 JVM 无法直接通过附加参数指定绑定接口 或 IP，需要利用 JVM 代理
 
 　*未确认，如有对应的附加参数或其他方案，请告知*
 
-通常需要修改 [H@H 客户端监听端口](https://github.com/Oniicyan/HatH-STUN-Docker#hh) 与 [NATMap 绑定接口](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
+**基于 目的 IP 地址 进行策略分流时**，可使用路由表而不是代理来实现，能达到更好的效果
+
+　*RPC 服务器 IP 有多个，可以此区分 目的 IP 地址*
+
+策略分流通常需要同时修改 [H@H 客户端监听端口](https://github.com/Oniicyan/HatH-STUN-Docker#hh) 与 [NATMap 绑定接口](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
+
+只要配置正确，本镜像支持在同一设备下运行多个容器，分别使用不同的互联网接口
+
+---
+
+只要理清楚相互关系，不同场景的代理可以共存。
+
+比如用 **JVM 代理** 指定 源 IP 地址，用 **全局代理** 作为 STUN 获取与更新 H@H 客户端设置信息的手段，同时用 **客户端代理** 下载画廊
 
 ---
 
@@ -363,7 +383,7 @@ oniicyan99/hentaiathome
 | StunInterval | 穿透通道保活间隔（秒） | `25` |
 | StunInterface | NATMap 绑定接口或 IP<br>通常在策略分流时指定 | 不启用 |
 | StunForward | NATMap 转发开关 | 不启用 |
-| StunForwardAddr | NATMap 转发的目标地址（目标端口为 `StunHathPort`）<br>通常在策略分流时指定| `127.0.0.1` |
+| StunForwardAddr | NATMap 转发的目的地址（目的端口为 `StunHathPort`）<br>通常在策略分流时指定| `127.0.0.1` |
 | StunArgs | [NATMap 其他参数](https://github.com/heiher/natmap#how-to-use)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
 
 ## UPnP
@@ -371,7 +391,7 @@ oniicyan99/hentaiathome
 | 名称 | 说明 | 默认 |
 | --- | --- | --- |
 | Upnp | UPnP 开关 | 不启用 |
-| UpnpAddr | UPnP 规则的目标地址<br>Bridge 网络下请填写宿主的本地 IP 地址 | `@`（自动检测本地地址） |
+| UpnpAddr | UPnP 规则的目的地址<br>Bridge 网络下请填写宿主的本地 IP 地址 | `@`（自动检测本地地址） |
 | UpnpInPort | UPnP 规则的内部端口 | 启用 STUN 时为 `StunHathPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
 | UpnpExPort | UPnP 规则的外部端口 | 启用 STUN 时为 `StunBindPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
 | UpnpUrl | UPnP 设备描述文件 (XML) 的 URL<br>用作绕过发现过程，通常在 Bridge 模式下需要 | 无 |

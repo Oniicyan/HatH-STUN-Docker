@@ -220,7 +220,7 @@ Windows 或 Linux 终端下执行 `curl` 确认能否直接访问 `https://e-hen
 
 **注意，即使测试成功，也不代表全局代理涵括 Docker 容器运行设备**
 
-**同时，确保全局代理不会转发 [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)，否则将提识别理服务器 IP 作为 H@H 客户端**
+**同时，确保全局代理不会转发 [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)，否则将识别代理服务器 IP 作为 H@H 客户端**
 
 测试以下命令；**注意代理的协议、地址与端口，这就是配置代理时需要的信息**
 

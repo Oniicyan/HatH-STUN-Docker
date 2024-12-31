@@ -342,8 +342,8 @@ oniicyan99/hentaiathome
 | HathDownload | 下载目录 | `./download` |
 | HathLog | 日志目录 | `./log` |
 | HathTemp | 临时目录 | `./tmp` |
-| HathRpc | [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)，一般用作代理规则 | 自动获取 |
-| HathSkipIpCheck | 跳过请求地址检测<br>[用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun) 时，请求地址会变成 `127.0.0.1` 或 `172.16.0.1` 等，需要跳过检测 | 不启用<br>`STUN 转发模式` 下自动启用 |
+| HathRpc | [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)，通常用在代理规则或策略分流 | 自动获取 |
+| HathSkipIpCheck | 跳过请求地址检测<br>[用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun) 时，远程请求的地址会变成本地地址，需要跳过检测 | 不启用<br>`STUN 转发模式` 下自动启用 |
 | HathArgs | [H@H 客户端其他参数](https://ehwiki.org/wiki/Hentai@Home#Software)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
 
 ## STUN
@@ -352,7 +352,7 @@ oniicyan99/hentaiathome
 | --- | --- | --- |
 | Stun | STUN 开关 | 不启用 |
 | StunServer | STUN 服务器；[域名列表](https://oniicyan.pages.dev/stun_servers_domain.txt)、[IP 列表](https://oniicyan.pages.dev/stun_servers_ipv4.txt) | `turn.cloudflare.com` |
-| StunHttpServer | 穿透通道保持用的 HTTP 服务器 | `qq.com` |
+| StunHttpServer | 穿透通道保活用的 HTTP 服务器 | `qq.com` |
 | StunBindPort | NATMap 绑定端口 | `44377` |
 | StunHathPort | H@H 客户端监听端口 | `44388` |
 | StunInterval | 穿透通道保活间隔（秒） | `25` |

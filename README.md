@@ -164,7 +164,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 ---
 
-本镜像获取与更新 H@H 客户端设置信息时，通过 `curl` 命令的 `-x` 参数使用代理，需要单独配置。
+本镜像获取与更新 H@H 客户端设置信息时，通过 `curl` 命令的 `-x` 参数使用代理，需要单独配置
 
 ---
 

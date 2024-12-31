@@ -122,7 +122,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
   H@H 客户端运行设备的 IPv4 地址，可以是路由器自身的地址（在路由器上运行 Docker）
 
-  **使用 Bridge 网络时，应填写宿主 IP 地址**
+  **使用 Bridge 网络时，应填写宿主的本地 IP 地址**
   
 * `内部端口`：`44388`
 
@@ -296,9 +296,11 @@ oniicyan99/hentaiathome
 
 ---
 
-Bridge 网络、启用客户端代理、启用 STUN 穿透
+Bridge 网络、启用 JVM 代理、启用 STUN 穿透
 
 **请确认已配置 [端口映射](https://github.com/Oniicyan/HatH-STUN-Docker#端口映射)**
+
+**请确认已配置 [绕过 RPC 服务器 IP](https://github.com/Oniicyan/HatH-STUN-Docker#关于代理)**
 
 ```
 sudo docker run -d \
@@ -307,9 +309,8 @@ sudo docker run -d \
 -v /工作目录:/hath \
 -e HathClientId='H@H 客户端 ID' \
 -e HathClientKey='H@H 客户端 密钥' \
--e HathProxyType='socks' \
--e HathProxyHost='127.0.0.1' \
--e HathProxyPort='10808' \
+-e JvmSocksHost='127.0.0.1' \
+-e JvmSocksPort='10808' \
 -e Stun=1 \
 -e StunProxy='socks5://127.0.0.1:10808' \
 -e StunIpbId='ipb_member_id' \
@@ -370,9 +371,9 @@ oniicyan99/hentaiathome
 | 名称 | 说明 | 默认 |
 | --- | --- | --- |
 | Upnp | UPnP 开关 | 不启用 |
-| UpnpAddr | 映射规则的目标地址<br>Bridge 网络下请填写宿主的 IP 地址 | `@`，即自动检测本机地址 |
-| UpnpInPort | 映射规则的内部端口 | 启用 STUN 时为 `StunHathPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
-| UpnpExPort | 映射规则的外部端口 | 启用 STUN 时为 `StunBindPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
+| UpnpAddr | UPnP 规则的目标地址<br>Bridge 网络下请填写宿主的本地 IP 地址 | `@`（自动检测本地地址） |
+| UpnpInPort | UPnP 规则的内部端口 | 启用 STUN 时为 `StunHathPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
+| UpnpExPort | UPnP 规则的外部端口 | 启用 STUN 时为 `StunBindPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
 | UpnpUrl | UPnP 设备描述文件 (XML) 的 URL<br>用作绕过发现过程，通常在 Bridge 模式下需要 | 无 |
 | UpnpArgs | [MiniUPnPc 其他参数](https://manpages.debian.org/unstable/miniupnpc/upnpc.1.en.html)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
 

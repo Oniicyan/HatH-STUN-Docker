@@ -76,7 +76,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 # 准备工作
 
-在进行配置前，需要获取 H@H 客户端或 E-Hentai 账号的鉴权信息
+在进行配置前，需要获取 H@H 客户端 或 E-Hentai 账号 的鉴权信息
 
 ## 获取 H@H 客户端的 ID 与密钥
 

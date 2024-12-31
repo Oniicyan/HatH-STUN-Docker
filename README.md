@@ -48,7 +48,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 ---
 
-**对于蜂窝移动网络**，防火墙通常配置在运营商侧设备，用户无操作权限。且通常不配置 UPnP IGD / NAT-PMP / PCP 可供用户操作的接口。
+**对于蜂窝移动网络**，防火墙通常配置在运营商侧设备，用户无操作权限。且通常不配置 UPnP IGD / NAT-PMP / PCP 等可供用户请求的接口。
 
 因此，当检蜂窝移动网络下 NAT 类型测结果不为全锥形时，将无法穿透。
 

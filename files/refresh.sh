@@ -6,6 +6,9 @@
 ps aux | grep natmap | grep -v grep ||\
 (echo NATMap 未在运行，请重启容器 && exit 1)
 
+[ -f /files/WANPORT ] ||\
+(echo 未检测到公网端口，请检查 STUN 服务器 && exit 1)
+
 echo 开始刷新 Hentai@Home with STUN
 
 [ $HathData ] || HathData=/hath/data

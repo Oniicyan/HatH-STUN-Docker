@@ -176,7 +176,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
    使用 [Java 虚拟机内置的代理支持](https://github.com/Oniicyan/HatH-STUN-Docker#jvm)，适用于 **下载画廊** 与 **策略分流**
 
-   作为下载画廊的代理手段时，需要配置绕过 RPC 服务器 IP 的规则
+   作为下载画廊的代理手段时，需要绕过 RPC 服务器 IP
 
    作为策略分流的代理手段时，需要指定互联网接口
 

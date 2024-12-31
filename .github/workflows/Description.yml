@@ -1,9 +1,9 @@
-name: Push README.md
+name: Push Description
 on:
   workflow_dispatch:
 jobs:
   push_to_registry:
-    name: Push README.md
+    name: Push Description
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo

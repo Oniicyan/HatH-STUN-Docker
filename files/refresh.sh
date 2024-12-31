@@ -1,7 +1,7 @@
 #!/bin/bash
 
 [ $Stun ] ||\
-(echo 未启用 STUN 模式，不执行刷新 && exit 1)
+(echo 未启用 STUN，不执行刷新 && exit 1)
 
 ps aux | grep natmap | grep -v grep ||\
 (echo NATMap 未在运行，请重启容器 && exit 1)
@@ -79,8 +79,5 @@ while [ ! $SKIP ]; do
 	echo 外部端口 $WANPORT/tcp 更新成功 && break
 done
 
-# 发送 client_start 后，检测是否需要启动 H@H 客户端
-# 若客户端已启动，则自动恢复连接，无需重启
-# 若客户端未启动，client_suspend 与 client_start 不会造成实质影响
 [ $SKIP ] || ACTION client_start >/dev/null
-# ps aux | grep HentaiAtHome | grep -v grep >/dev/null || hath.sh
+echo 成功刷新 Hentai@Home with STUN

@@ -12,7 +12,9 @@ https://mao.fan/mynat
 
 只要不是 **对称型 (Symmetric) NAT**，基本上都可以穿透。
 
-### 全锥形 NAT 与 端口受限锥形 NAT 的区别
+### 全锥形 NAT 与 端口受限锥形 NAT 的区别[^1]
+
+[^1]:本节内容包括但不限于 H@H 客户端穿透场景
 
 全锥形 NAT (Fullcone NAT 或叫 **NAT1**) 与 端口受限锥形 NAT（Port-Restricted Cone 或叫 **NAT3**）的 **映射行为 (Mapping behavior)** 是一样的，区别在于防火墙的 **过滤行为 (Filtering behavior)**。
 
@@ -23,6 +25,8 @@ https://mao.fan/mynat
 一般推荐的操作方法，优先级从高至底为 **端口映射（或叫“虚拟服务器”）> UPnP > DMZ**。
 
 这三个方案的目的都是允许特定端口的入站连接并映射到正确的目标设备上，具体根据场景选择。
+
+* *由于 DMZ 仅映射内外一致的端口，不适用于本场景*
 
 若目标设备已获得 NAT1，则以上操作可省略，但**仍建议使用网关进行 NAT 以实现更高的性能**。
 
@@ -38,7 +42,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 实际上，只有少部分地区的蜂窝移动网络未配置防火墙。
 
-*蜂窝移动网络的 IPv6 入站连接也受运营商侧防火墙限制*
+* *蜂窝移动网络的 IPv6 入站连接也受运营商侧防火墙限制*
 
 **对于无网关操作权限的**，本镜像也提供了 UPnP 及 [用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun)（仅限 NAT1）协助实现最大限度的穿透可能性。
 
@@ -108,7 +112,45 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 ![图片](https://github.com/user-attachments/assets/7a0582fc-4e5d-4ff8-bbd5-4c6a0548c1ab)
 
-## 测试代理
+## 关于代理
+
+有 3 种场景需要使用代理
+
+1. STUN
+
+   部分地区无法直接获取与更新 H@H 客户端设置信息（[测试代理](https://github.com/Oniicyan/HatH-STUN-Docker#测试代理)）
+
+2. 下载画廊
+
+   部分地区使用 H@H 客户端直接下载画廊 (Gallery) 时的体验较差，有可能缺图或等待时间长
+
+   若请求下载后 168 小时尚未完成，下载将被取消，用户需要从浏览器历史记录等途径追溯下载候选
+
+3. 分流
+
+   
+
+除了 STUN 模式下获取与更新端口信息需要使用代理外，也可为 H@H 客户端下载图库时配置代理
+
+H@H 客户端默认直连下载图库，但在部分地区容易出现缺图或等待时间长的现象，建议配置代理
+
+H@H 客户端配置代理有 3 种途径
+
+1. **客户端代理**：使用 [H@H 客户端内置的代理支持](https://github.com/Oniicyan/HatH-STUN-Docker#hh)，首选
+
+3. **JVM 代理**：使用 [Java 虚拟机内置的代理支持](https://github.com/Oniicyan/HatH-STUN-Docker#jvm)
+
+5. **全局透明代理**：用户网关或宿主设备上配置拦截流量的全局代理
+
+H@H 客户端在运行时，会与 RPC 服务器通信，服务器会检测连接时的 IP 作为 H@H 客户端地址
+
+**若与 RPC 服务器通信时使用了代理，则会识别为代理服务器的 IP，导致 H@H 无法正常分发**
+
+在使用 **客户端代理** 时，会自动绕过 RPC 服务器
+
+在使用 **JVM 代理** 与 **全局透明代理** 时，请注意绕过 **[RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)**，IP 列表会在启动后保存至 `/hath/rpc_server_ip.txt`
+
+### 测试代理
 
 **代理仅在启用 STUN 穿透时必要**
 
@@ -133,28 +175,6 @@ Windows 或 Linux 终端下执行 `curl` 确认能否直接访问 `https://e-hen
 若提示 `curl: (35) schannel: failed to receive handshake, SSL/TLS connection failed`，可尝试使用 **HTTP 代理**
 
 `curl -x http://127.0.0.1:7899 -m 5 https://e-hentai.org/hentaiathome.php`
-
-### 关于图库代理
-
-除了 STUN 模式下获取与更新端口信息需要使用代理外，也可为 H@H 客户端下载图库时配置代理
-
-H@H 客户端默认直连下载图库，但在部分地区容易出现缺图或等待时间长的现象，建议配置代理
-
-H@H 客户端配置代理有 3 种途径
-
-1. **客户端代理**：使用 [H@H 客户端内置的代理支持](https://github.com/Oniicyan/HatH-STUN-Docker#hh)，首选
-
-3. **JVM 代理**：使用 [Java 虚拟机内置的代理支持](https://github.com/Oniicyan/HatH-STUN-Docker#jvm)
-
-5. **全局透明代理**：用户网关或宿主设备上配置拦截流量的全局代理
-
-H@H 客户端在运行时，会与 RPC 服务器通信，服务器会检测连接时的 IP 作为 H@H 客户端地址
-
-**若与 RPC 服务器通信时使用了代理，则会识别为代理服务器的 IP，导致 H@H 无法正常分发**
-
-在使用 **客户端代理** 时，会自动绕过 RPC 服务器
-
-在使用 **JVM 代理** 与 **全局透明代理** 时，请注意绕过 **[RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)**，IP 列表会在启动后保存至 `/hath/rpc_server_ip.txt`
 
 # 配置容器
 
@@ -284,9 +304,9 @@ oniicyan99/hentaiathome
 | StunBindPort | NATMap 绑定端口 | `44377` |
 | StunHathPort | H@H 客户端监听端口 | `44388` |
 | StunInterval | 穿透通道保活间隔（秒） | `25` |
-| StunInterface | NATMap 绑定接口 | 不启用 |
+| StunInterface | NATMap 绑定接口或 IP<br>通常在需要分流时指定 | 不启用 |
 | StunForward | NATMap 转发开关 | 不启用 |
-| StunForwardAddr | NATMap 转发的目标地址（目标端口为 `StunHathPort`）| `127.0.0.1` |
+| StunForwardAddr | NATMap 转发的目标地址（目标端口为 `StunHathPort`）<br>通常在需要分流时指定| `127.0.0.1` |
 | StunArgs | [NATMap 其他参数](https://github.com/heiher/natmap#how-to-use)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
 
 ## UPnP

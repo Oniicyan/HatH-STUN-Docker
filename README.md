@@ -188,9 +188,11 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 ---
 
-启用 STUN 时，若未配置全局代理，则需要通过 `curl` 命令的 `-x` 参数指定代理
+启用 STUN 时，若未配置全局代理，则需要通过 `curl` 命令的 `-x` 参数指定代理`
 
 容器需要配置对应的 [STUN 变量](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
+
+STUN 需要代理的域名为 `e-hentai.org
 
 ---
 
@@ -367,7 +369,7 @@ oniicyan99/hentaiathome
 | HathDownload | 下载目录 | `./download` |
 | HathLog | 日志目录 | `./log` |
 | HathTemp | 临时目录 | `./tmp` |
-| HathRpc | [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)，通常用在代理规则或策略分流 | 自动获取 |
+| HathRpc | [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)<br>通常在策略分流时指定 | 自动获取 |
 | HathSkipIpCheck | 跳过请求地址检测<br>[用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun) 时，远程请求的地址会变成本地地址，需要跳过检测 | 不启用<br>`STUN 转发模式` 下自动启用 |
 | HathArgs | [H@H 客户端其他参数](https://ehwiki.org/wiki/Hentai@Home#Software)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
 

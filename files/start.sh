@@ -1,6 +1,5 @@
 #!/bin/bash
 
-kill $(ps aux | grep natmap | grep -v grep | awk '{print$2}') 2>/dev/null ||\
 echo 开始执行 Hentai@Home with STUN
 
 # 仅指定已挂载的自定义目录
@@ -54,7 +53,7 @@ ADD_UPNP() {
 }
 
 if [ $Stun ]; then
-	echo 已启用 STUN 模式，穿透后启动 H@H 客户端
+	echo 已启用 STUN，穿透后启动 H@H 客户端
 	([ $(echo $StunIpbId | grep -E '^[0-9]*$') ] && [ $(echo -n $StunIpbPass | wc -m) = 32 ]) ||\
 	(echo 用户 ID '(ipb_member_id)' 或密钥 '(ipb_pass_hash)' 格式不正确 && exit 1)
 	[ $StunServer ] || StunServer=turn.cloudflare.com
@@ -68,6 +67,7 @@ if [ $Stun ]; then
 		[ $StunForwardAddr ] || StunForwardAddr=127.0.0.1
 		StunForward='-t '$StunForwardAddr' -p '$StunHathPort''
 		export HathSkipIpCheck=1
+		echo 已启用 STUN 转发，目标为 $StunForwardAddr:$StunHathPort；跳过请求地址检测
 	fi
 	[ $Upnp ] && echo 已启用 UPnP，开始执行 && ADD_UPNP
 	NatmapStart='natmap -4 -s '$StunServer' -h '$StunHttpServer' -b '$StunBindPort' -k '$StunInterval' '$StunInterface' '$StunForward' '$StunArgs' -e /files/natmap.sh'
@@ -75,7 +75,7 @@ if [ $Stun ]; then
 	echo $NatmapStart
 	$NatmapStart
 else
-	echo 未启用 STUN 模式，直接启动 H@H 客户端
+	echo 未启用 STUN，直接启动 H@H 客户端
 	[ $Upnp ] && echo 已启用 UPnP，开始执行 && ADD_UPNP
-	[ $(ps aux | grep HentaiAtHome.jar | grep -v grep) ] || hath.sh
+	hath.sh
 fi

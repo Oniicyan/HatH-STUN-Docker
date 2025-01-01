@@ -34,7 +34,7 @@ ADD_UPNP() {
 			if [ ! $UpnpClientPort ]; then
 				ActTime=$(date +%s)
 				ActKey=$(echo -n "hentai@home-client_settings--$HathClientId-$ActTime-$HathClientKey" | sha1sum | cut -c -40)
-				UpnpClientPort=$(curl -Ls 'http://rpc.hentaiathome.net/15/rpc?clientbuild=169&act=client_settings&add=&cid='$HathClientId'&acttime='$ActTime'&actkey='$ActKey'' | grep port= | grep -oE '[0-9]*')
+				UpnpClientPort=$(curl -Ls 'http://rpc.hentaiathome.net/15/rpc?clientbuild=176&act=client_settings&add=&cid='$HathClientId'&acttime='$ActTime'&actkey='$ActKey'' | grep port= | grep -oE '[0-9]*')
 			fi
 			if [ $UpnpClientPort ];then
 				[ $UpnpInPort ] || UpnpInPort=$UpnpClientPort

@@ -318,7 +318,7 @@ oniicyan99/hentaiathome
 
 ---
 
-Bridge 网络、启用 JVM 代理、启用 STUN 穿透
+Bridge 网络、启用 JVM 代理 (SOCKS)、启用 STUN 穿透
 
 **请确认已配置 [端口映射](https://github.com/Oniicyan/HatH-STUN-Docker#端口映射)**
 

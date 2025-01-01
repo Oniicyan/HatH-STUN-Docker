@@ -192,7 +192,7 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 容器需要配置对应的 [STUN 变量](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
 
-STUN 需要代理的域名为 `e-hentai.org
+STUN 需要代理的域名为 `e-hentai.org`
 
 ---
 

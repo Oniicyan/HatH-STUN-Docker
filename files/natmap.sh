@@ -46,12 +46,12 @@ done
 echo 外部端口 $WANPORT/tcp 未发生变化 && SKIP=1
 
 # 定义与 RPC 服务器交互的函数
-# 访问 http://rpc.hentaiathome.net/15/rpc?clientbuild=169&act=server_stat 查询当前支持的 client_build
+# 访问 http://rpc.hentaiathome.net/15/rpc?clientbuild=176&act=server_stat 查询当前支持的 client_build
 ACTION() {
 	ACT=$1
 	ACTTIME=$(date +%s)
 	ACTKEY=$(echo -n "hentai@home-$ACT--$HATHCID-$ACTTIME-$HATHKEY" | sha1sum | cut -c -40)
-	curl -Ls 'http://rpc.hentaiathome.net/15/rpc?clientbuild=169&act='$ACT'&add=&cid='$HATHCID'&acttime='$ACTTIME'&actkey='$ACTKEY''
+	curl -Ls 'http://rpc.hentaiathome.net/15/rpc?clientbuild=176&act='$ACT'&add=&cid='$HATHCID'&acttime='$ACTTIME'&actkey='$ACTKEY''
 }
 
 # 发送 client_suspend 后，更新端口信息

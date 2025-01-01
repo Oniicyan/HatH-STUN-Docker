@@ -38,7 +38,7 @@ cd /hath
 # 获取 RPC 服务器 IP
 ActTime=$(date +%s)
 ActKey=$(echo -n "hentai@home-client_settings--$HathClientId-$ActTime-$HathClientKey" | sha1sum | cut -c -40)
-RpcServerIp=$(curl -Ls 'http://rpc.hentaiathome.net/15/rpc?clientbuild=169&act=client_settings&add=&cid='$HathClientId'&acttime='$ActTime'&actkey='$ActKey'' | grep rpc_server_ip)
+RpcServerIp=$(curl -Ls 'http://rpc.hentaiathome.net/15/rpc?clientbuild=176&act=client_settings&add=&cid='$HathClientId'&acttime='$ActTime'&actkey='$ActKey'' | grep rpc_server_ip)
 if [ $RpcServerIp ]; then
 	echo $RpcServerIp | grep -oE '([0-9]*\.?){4}' >/hath/rpc_server_ip.txt
 	echo 获取 RPC 服务器 IP 成功，保存至 rpc_server_ip.txt

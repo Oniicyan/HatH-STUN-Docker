@@ -256,6 +256,8 @@ Windows 或 Linux 终端下执行 `curl` 确认能否直接访问 `https://e-hen
 
 `curl -x http://127.0.0.1:7899 -m 5 https://e-hentai.org/hentaiathome.php`
 
+---
+
 # 配置容器
 
 ## 拉取镜像

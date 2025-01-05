@@ -315,7 +315,7 @@ sudo docker run -d \
 -e StunIpbId='ipb_member_id' \
 -e StunIpbPass='ipb_pass_hash' \
 -e Upnp=1 \
-oniicyan99/hentaiathome
+oniicyan99/hentaiathome:latest
 ```
 
 若已配置 **[端口映射](https://github.com/Oniicyan/HatH-STUN-Docker#端口映射)**，则可删除 `Upnp` 行
@@ -343,7 +343,7 @@ sudo docker run -d \
 -e StunProxy='socks5://127.0.0.1:10808' \
 -e StunIpbId='ipb_member_id' \
 -e StunIpbPass='ipb_pass_hash' \
-oniicyan99/hentaiathome
+oniicyan99/hentaiathome:latest
 ```
 
 ---
@@ -370,11 +370,6 @@ oniicyan99/hentaiathome
 | HathProxyType | H@H 客户端代理类型，可用值为 `socks` 或 `http`  | `socks` |
 | HathProxyPort | H@H 客户端代理端口 | `socks` 为 `1080` <br> `http` 为 `8080` |
 | HathPort | H@H 客户端监听端口<br>通常在策略分流时指定 | 从 RPC 服务器获取<br>[STUN](https://github.com/Oniicyan/HatH-STUN-Docker#stun) 模式下重写为 `StunHathPort` |
-| HathCache | 缓存目录 | `./cache` |
-| HathData | 数据目录 | `./data` |
-| HathDownload | 下载目录 | `./download` |
-| HathLog | 日志目录 | `./log` |
-| HathTemp | 临时目录 | `./tmp` |
 | HathRpc | [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)<br>通常在策略分流时指定 | 自动获取 |
 | HathSkipIpCheck | 跳过请求地址检测<br>[用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun) 时，远程请求的地址会变成本地地址，需要跳过检测 | 不启用<br>`STUN 转发模式` 下自动启用 |
 | HathArgs | [H@H 客户端其他参数](https://ehwiki.org/wiki/Hentai@Home#Software)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |

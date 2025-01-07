@@ -380,7 +380,7 @@ oniicyan99/hentaiathome:latest
 | --- | --- | --- |
 | Stun | STUN 开关 | 不启用 |
 | StunProxy | 获取与更新 H@H 客户端设置信息时使用的代理<br>格式如 `socks5://127.0.0.1:10808`，详细请查阅 [curl 文档](https://curl.se/docs/manpage.html#-x) | 无 |
-| StunServer | STUN 服务器；[域名列表](https://oniicyan.pages.dev/stun_servers_domain.txt)、[IP 列表](https://oniicyan.pages.dev/stun_servers_ipv4.txt) | `turn.cloudflare.com` |
+| StunServer | STUN 服务器：[域名列表](https://oniicyan.pages.dev/stun_servers_domain.txt)、[IP 列表](https://oniicyan.pages.dev/stun_servers_ipv4.txt) | `turn.cloudflare.com` |
 | StunHttpServer | 穿透通道保活用的 HTTP 服务器 | `qq.com` |
 | StunBindPort | NATMap 绑定端口 | `44377` |
 | StunHathPort | H@H 客户端监听端口 | `44388` |

@@ -12,6 +12,7 @@ FROM eclipse-temurin:8-jre-noble AS release
 COPY --from=builder /files /files
 COPY /files /files
 ENV PATH="$PATH:/files"
+ENV BUILD=176
 
 RUN chmod +x /files/* \
     && apt-get update \

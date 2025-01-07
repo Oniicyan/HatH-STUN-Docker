@@ -190,6 +190,14 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 
 ---
 
+***客户端代理** 目前尚未完善，会出现不断重试报错，推送到特定服务器后才开始下载的情况*
+
+*若已配置了 **全局代理**，建议添加绕过 RPC 服务器 IP 的规则直接利用*
+
+*否则，建议使用 **JVM 代理**，但同样需要在代理客户端上配置绕过 RPC 服务器 IP 的规则*
+
+---
+
 启用 STUN 时，若未配置全局代理，则需要通过 `curl` 命令的 `-x` 参数指定代理`
 
 容器需要配置对应的 [STUN 变量](https://github.com/Oniicyan/HatH-STUN-Docker#stun)
@@ -301,7 +309,7 @@ H@H 客户端会自动创建或使用该目录下的 `cache` `data` `download` `
 请替换 **工作目录**、**代理信息** 以及 **鉴权信息**
 
 ```
-sudo docker run -d \
+docker run -d \
 --name hath \
 --net host \
 -v /工作目录:/hath \
@@ -331,7 +339,7 @@ Bridge 网络、启用 JVM 代理 (SOCKS)、启用 STUN 穿透
 **请确认已配置 [绕过 RPC 服务器 IP](https://github.com/Oniicyan/HatH-STUN-Docker#关于代理)**
 
 ```
-sudo docker run -d \
+docker run -d \
 --name hath \
 -p 44377:44388 \
 -v /工作目录:/hath \

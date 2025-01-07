@@ -27,7 +27,7 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/ppc64le
           push: true
           tags: |
-            docker.io/oniicyan99/hentaiathome:1.6.4.5
+            docker.io/oniicyan99/hentaiathome:1.6.4.6
             docker.io/oniicyan99/hentaiathome:latest
           # cache-from: type=gha,scope=${{ github.workflow }}
           # cache-to: type=gha,mode=max,scope=${{ github.workflow }}

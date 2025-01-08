@@ -427,4 +427,4 @@ oniicyan99/hentaiathome:latest
 | JvmSocksPort | Java 虚拟机 SOCKS 代理端口 | 无 |
 | JvmSocksUser | Java 虚拟机 SOCKS 代理账号 | 无 |
 | JvmSocksPass | Java 虚拟机 SOCKS 代理密码 | 无 |
-| JvmArgs | [JVM 其他参数](https://docs.oracle.com/cd/E22289_01/html/821-1274/configuring-the-default-jvm-and-java-arguments.html)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
+| JvmArgs | [JVM 其他参数](https://docs.oracle.com/cd/E22289_01/html/821-1274/configuring-the-default-jvm-and-java-arguments.html)，为避免 `-` 号被解释，建议内容用单引号包围<br>如 `'-Xms16m -Xmx512m'` 可限制启动内存 16M，最大内存 512M | 无 |

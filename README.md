@@ -368,6 +368,8 @@ oniicyan99/hentaiathome:latest
 
 **不启用的变量请留空**；指定任何字符串，即使是 `0` 或 `off`，仍会启用该变量
 
+部分环境下，变量中的 `-` 号可能会被解释，请自行判断是否需要用单引号包围
+
 ## H@H
 
 | 名称 | 说明 | 默认 |
@@ -380,7 +382,7 @@ oniicyan99/hentaiathome:latest
 | HathPort | H@H 客户端监听端口<br>通常在策略分流时指定 | 从 RPC 服务器获取<br>[STUN](https://github.com/Oniicyan/HatH-STUN-Docker#stun) 模式下重写为 `StunHathPort` |
 | HathRpc | [RPC 服务器 IP](https://oniicyan.pages.dev/rpc_server_ip.txt)<br>通常在策略分流时指定 | 自动获取 |
 | HathSkipIpCheck | 跳过请求地址检测<br>[用户程序转发](https://github.com/Oniicyan/HatH-STUN-Docker#stun) 时，远程请求的地址会变成本地地址，需要跳过检测 | 不启用<br>`STUN 转发模式` 下自动启用 |
-| HathArgs | [H@H 客户端其他参数](https://ehwiki.org/wiki/Hentai@Home#Software)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
+| HathArgs | [H@H 客户端其他参数](https://ehwiki.org/wiki/Hentai@Home#Software) | 无 |
 
 ## STUN
 
@@ -396,7 +398,7 @@ oniicyan99/hentaiathome:latest
 | StunInterface | NATMap 绑定接口或 IP<br>通常在策略分流时指定 | 不启用 |
 | StunForward | NATMap 转发开关 | 不启用 |
 | StunForwardAddr | NATMap 转发的目的地址（目的端口为 `StunHathPort`）<br>通常在策略分流时指定| `127.0.0.1` |
-| StunArgs | [NATMap 其他参数](https://github.com/heiher/natmap#how-to-use)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
+| StunArgs | [NATMap 其他参数](https://github.com/heiher/natmap#how-to-use) | 无 |
 
 ## UPnP
 
@@ -407,7 +409,7 @@ oniicyan99/hentaiathome:latest
 | UpnpInPort | UPnP 规则的内部端口 | 启用 STUN 时为 `StunHathPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
 | UpnpExPort | UPnP 规则的外部端口 | 启用 STUN 时为 `StunBindPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
 | UpnpUrl | UPnP 设备描述文件 (XML) 的 URL<br>用作绕过发现过程，通常在 Bridge 模式下需要 | 无 |
-| UpnpArgs | [MiniUPnPc 其他参数](https://manpages.debian.org/unstable/miniupnpc/upnpc.1.en.html)，为避免 `-` 号被解释，建议内容用单引号包围 | 无 |
+| UpnpArgs | [MiniUPnPc 其他参数](https://manpages.debian.org/unstable/miniupnpc/upnpc.1.en.html) | 无 |
 
 ## JVM
 
@@ -427,4 +429,4 @@ oniicyan99/hentaiathome:latest
 | JvmSocksPort | Java 虚拟机 SOCKS 代理端口 | 无 |
 | JvmSocksUser | Java 虚拟机 SOCKS 代理账号 | 无 |
 | JvmSocksPass | Java 虚拟机 SOCKS 代理密码 | 无 |
-| JvmArgs | [JVM 其他参数](https://docs.oracle.com/cd/E22289_01/html/821-1274/configuring-the-default-jvm-and-java-arguments.html)，为避免 `-` 号被解释，建议内容用单引号包围<br>如 `'-Xms16m -Xmx512m'` 可限制启动内存 16M，最大内存 512M | 无 |
+| JvmArgs | [JVM 其他参数](https://docs.oracle.com/cd/E22289_01/html/821-1274/configuring-the-default-jvm-and-java-arguments.html)<br>如 `-Xms16m -Xmx512m` 可限制启动内存 16M，最大内存 512M | 无 |

@@ -18,7 +18,7 @@ https://mao.fan/mynat
 
 　*本节内容包括但不限于 H@H 客户端穿透场景*
 
-全锥形 NAT (Fullcone NAT 或叫 **NAT1**) 与 端口受限锥形 NAT（Port-Restricted Cone 或叫 **NAT3**）的 **映射行为 (Mapping behavior)** 是一样的，区别在于防火墙的 **过滤行为 (Filtering behavior)**。
+全锥形 NAT（Fullcone NAT 或叫 **NAT1**）与 端口受限锥形 NAT（Port-Restricted Cone 或叫 **NAT3**）的 **映射行为 (Mapping behavior)** 是一样的 (`EndpointIndependent`)，区别在于防火墙的 **过滤行为 (Filtering behavior)**。
 
 　*受限锥形 NAT（Restricted Cone 或叫 **NAT2**）较为罕见，不作考虑*
 
@@ -57,6 +57,16 @@ Windows 执行 `tracert qq.com`，Linux 执行 `traceroute qq.com` 确认 NAT �
 实际上，只有少部分地区的蜂窝移动网络未配置防火墙。
 
 　*蜂窝移动网络的 IPv6 入站连接也受运营商侧防火墙限制*
+
+---
+
+### 对称形 NAT
+
+通常，即使 NAT 网关支持 对称形 NAT（Symmetric NAT 或叫 **NAT4**），默认也不会启用。
+
+因此，当检测出映射行为为 `AddressAndPortDependent` 时，说明是 **NAT 网关刻意进行限制**。
+
+除非用户有操作权限，否则无法穿透。
 
 ---
 

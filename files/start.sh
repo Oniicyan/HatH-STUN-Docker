@@ -70,7 +70,7 @@ if [ $Stun ]; then
 		echo 已启用 STUN 转发，目标为 $StunForwardAddr:$StunHathPort；跳过请求地址检测
 	fi
 	[ $Upnp ] && echo 已启用 UPnP，开始执行 && ADD_UPNP
-	NatmapStart='natmap -d -4 -s '$StunServer' -h '$StunHttpServer' -b '$StunBindPort' -k '$StunInterval' '$StunInterface' '$StunForward' '$StunArgs' -e /files/natmap.sh'
+	NatmapStart='natmap -4 -s '$StunServer' -h '$StunHttpServer' -b '$StunBindPort' -k '$StunInterval' '$StunInterface' '$StunForward' '$StunArgs' -e /files/natmap.sh'
 	echo 本次 NATMap 执行命令
 	echo $NatmapStart
 	exec $NatmapStart

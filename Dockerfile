@@ -1,15 +1,13 @@
 FROM alpine AS builder
 
 RUN mkdir -p /files \
-    && arch \
-    && uname -m \
-    && cat etc/apk/arch \
-    && case $(arch) in x86_64) ARCH=x86_64;; armv7l) ARCH=arm32;; aarch64) ARCH=arm64;; ppc64le) ARCH=powerpc64;; esac \
-    && wget https://github.com/heiher/natmap/releases/latest/download/natmap-linux-$ARCH -O /files/natmap \
+    && ARCH=$(cat etc/apk/arch) \
+    && case $ARCH in x86)DL=i586;; x86_64)DL=x86_64;; armhf)DL=arm32hf;; armv7)DL=arm32v7;; aarch64)DL=arm64;; ppc64le)DL=powerpc64;; riscv64)DL=riscv64;; s390x)DL=s390x;; esac \
+    && wget https://github.com/heiher/natmap/releases/latest/download/natmap-linux-$DL -O /files/natmap \
     && wget https://repo.e-hentai.org/hath/HentaiAtHome_1.6.4.zip -O hath.zip \
     && apk add unzip \
     && unzip hath.zip HentaiAtHome.jar -d /files \
-    &&([[ ! $(arch) =~ 'armv7l']] \
+    &&([[ ! $ARCH =~ 'armv7l']] \
     && apk add openjdk11 \
     && DEPS=$(jdeps /files/HentaiAtHome.jar | awk '{print$NF}' | uniq) \
     && jlink --no-header-files --no-man-pages --compress=2 --strip-debug --add-modules $(echo $DEPS | tr ' ' ,) --output /files/jre-min)
@@ -23,7 +21,7 @@ ENV BUILD=176
 
 RUN chmod +x /files/* \
     && apk add curl miniupnpc \
-    &&([[ $(arch) =~ 'armv7l']] && apk add openjdk8-jre-base) \
+    &&([[ $(cat etc/apk/arch) =~ 'armv7l']] && apk add openjdk8-jre-base) \
     && rm -rf /var/cache/apk
 
 CMD ["start.sh"]

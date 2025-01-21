@@ -50,4 +50,4 @@ fi
 HathStart='java '$JvmArgs' -jar /files/HentaiAtHome.jar '$HathPort' '$HathDirs' '$HathProxy' '$HathArgs''
 echo 本次 H@H 客户端执行命令
 echo $HathStart
-$HathStart
+exec $HathStart

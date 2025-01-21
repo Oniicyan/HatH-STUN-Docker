@@ -6,7 +6,7 @@ RUN mkdir -p /files \
     && wget https://repo.e-hentai.org/hath/HentaiAtHome_1.6.4.zip -O hath.zip \
     && apk add unzip openjdk11\
     && unzip hath.zip HentaiAtHome.jar -d /files \
-    && DEPS=$(jdeps HentaiAtHome.jar | awk '{print$NF}' | uniq) \
+    && DEPS=$(jdeps /files/HentaiAtHome.jar | awk '{print$NF}' | uniq) \
     && jlink --no-header-files --no-man-pages --compress=2 --strip-debug --add-modules $(echo $DEPS | tr ' ' ,) --output /files/jre-min
 
 FROM alpine AS release

@@ -4,10 +4,12 @@ RUN mkdir -p /files \
     && case $(arch) in x86_64) ARCH=x86_64;; armv7l) ARCH=arm32;; aarch64) ARCH=arm64;; ppc64le) ARCH=powerpc64;; esac \
     && wget https://github.com/heiher/natmap/releases/latest/download/natmap-linux-$ARCH -O /files/natmap \
     && wget https://repo.e-hentai.org/hath/HentaiAtHome_1.6.4.zip -O hath.zip \
-    && apk --no-cache add unzip \
-    && unzip hath.zip HentaiAtHome.jar -d /files
+    && apk add unzip openjdk11\
+    && unzip hath.zip HentaiAtHome.jar -d /files \
+    && DEPS=$(jdeps HentaiAtHome.jar | awk '{print$NF}' | uniq) \
+    && jlink --no-header-files --no-man-pages --compress=2 --strip-debug --add-modules $(echo $DEPS | tr ' ' ,) --output /files/jre-min
 
-FROM eclipse-temurin:8-jre-noble AS release
+FROM alpine AS release
 
 COPY --from=builder /files /files
 COPY /files /files
@@ -15,9 +17,8 @@ ENV PATH="$PATH:/files"
 ENV BUILD=176
 
 RUN chmod +x /files/* \
-    && apt-get update \
-    && apt-get install -y miniupnpc \
-    && rm -rf /var/lib/apt/lists/*
+    && apk add curl miniupnpc \
+    && rm -rf /var/cache/apk
 
 CMD ["start.sh"]
 

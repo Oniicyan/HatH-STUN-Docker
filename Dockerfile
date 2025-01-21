@@ -7,10 +7,14 @@ RUN mkdir -p /files \
     && wget https://repo.e-hentai.org/hath/HentaiAtHome_1.6.4.zip -O hath.zip \
     && apk add unzip \
     && unzip hath.zip HentaiAtHome.jar -d /files \
-    &&([[ ! $ARCH =~ 'armv7' ]] \
+    &&([[ $ARCH =~ 'x86_64|aarch64|ppc64le|s390x' ]] \
     && apk add openjdk11 \
     && DEPS=$(jdeps /files/HentaiAtHome.jar | awk '{print$NF}' | uniq) \
-    && jlink --no-header-files --no-man-pages --compress=2 --strip-debug --add-modules $(echo $DEPS | tr ' ' ,) --output /files/jre-min)
+    && jlink --no-header-files --no-man-pages --compress=2 --strip-debug --add-modules $(echo $DEPS | tr ' ' ,) --output /files/jre) \
+    &&([[ $ARCH =~ 'riscv64' ]] \
+    && apk add openjdk21 binutils \
+    && DEPS=$(jdeps /files/HentaiAtHome.jar | awk '{print$NF}' | uniq) \
+    && jlink --no-header-files --no-man-pages --compress=zip-9 --strip-debug --add-modules $(echo $DEPS | tr ' ' ,) --output /files/jre)
 
 FROM alpine AS release
 
@@ -21,7 +25,7 @@ ENV BUILD=176
 
 RUN chmod +x /files/* \
     && apk add curl miniupnpc \
-    &&([[ $(cat etc/apk/arch) =~ 'armv7' ]] && apk add openjdk8-jre-base) \
+    &&([[ $(cat etc/apk/arch) =~ 'x86|armhf|armv7' ]] && apk add openjdk8-jre-base) \
     && rm -rf /var/cache/apk
 
 CMD ["start.sh"]

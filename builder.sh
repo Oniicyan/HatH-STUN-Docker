@@ -13,7 +13,7 @@ esac
 wget https://github.com/heiher/natmap/releases/latest/download/natmap-linux-$DL -O /files/natmap
 
 # ppc64le 可安装 openjdk11，但目前版本 qemu 下执行 jlink 报错
-# 在问题修复前，于发行镜像上安装 openjdk8-jre-base
+# 问题解决前，在发行镜像上安装 openjdk8-jre-base
 [[ $ARCH =~ 'x86_64|aarch64|s390x' ]] && \
 apk add openjdk11 && \
 DEPS=$(jdeps /files/HentaiAtHome.jar | awk '{print$NF}' | uniq) && \

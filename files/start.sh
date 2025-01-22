@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo 开始执行 Hentai@Home with STUN
 

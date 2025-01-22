@@ -16,7 +16,7 @@ ENV BUILD=176
 
 RUN chmod +x /files/* \
     && apk add curl miniupnpc \
-    && "([[ $(cat etc/apk/arch) =~ 'x86|armhf|armv7|ppc64le' ]] && apk add openjdk8-jre-base)" \
+    && sh -c "[[ $(cat etc/apk/arch) =~ '^(x86|armhf|armv7|ppc64le)$' ]] && apk add openjdk8-jre-base" \
     && rm -rf /var/cache/apk
 
 CMD ["start.sh"]

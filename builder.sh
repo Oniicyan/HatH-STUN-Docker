@@ -13,7 +13,7 @@ esac
 wget https://github.com/heiher/natmap/releases/latest/download/natmap-linux-$DL -O /files/natmap
 
 # H@H 客户端版本更新后，需手动确认依赖是否变更
-DEPS=java.base
+DEPS=java.base,jdk.crypto.ec
 
 # x86 armhf armv7 不支持 jlink
 # ppc64le 与 s390x 可安装 openjdk11，ppc64le 目前版本 qemu 下执行 java 报错，s390x 提示 "Ambiguous z/Architecture detection!"

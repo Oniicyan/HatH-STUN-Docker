@@ -1,6 +1,6 @@
 FROM alpine AS builder
 
-RUN sh builder.sh
+RUN ls && sh ./builder.sh
 
 FROM alpine AS release
 

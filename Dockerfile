@@ -1,8 +1,8 @@
-FROM alpine AS Builder
+FROM alpine AS builder
 
-RUN sh Builder.sh
+RUN sh builder.sh
 
-FROM alpine AS Release
+FROM alpine AS release
 
 COPY --from=Builder /files /files
 COPY /files /files

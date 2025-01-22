@@ -1,5 +1,6 @@
-# 下载 NATMap，识别对应的指令集架构
 ARCH=$(cat etc/apk/arch)
+
+# 下载 NATMap，识别对应的指令集架构
 case $ARCH in
   x86) DL=i586;;
   x86_64) DL=x86_64;;

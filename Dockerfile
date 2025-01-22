@@ -1,6 +1,12 @@
 FROM alpine AS builder
 
-RUN ls && sh ./builder.sh
+COPY /builder.sh /builder.sh
+
+RUN mkdir -p /files \
+    && wget https://repo.e-hentai.org/hath/HentaiAtHome_1.6.4.zip -O hath.zip \
+    && apk add unzip \
+    && unzip hath.zip HentaiAtHome.jar -d /files \
+    && sh /builder.sh
 
 FROM alpine AS release
 

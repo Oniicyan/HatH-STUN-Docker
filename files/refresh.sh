@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 [ $Stun ] ||\
 (echo 未启用 STUN，不执行刷新 && exit 1)

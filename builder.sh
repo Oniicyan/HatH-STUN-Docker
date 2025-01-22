@@ -1,5 +1,3 @@
-mkdir -p /files
-
 ARCH=$(cat etc/apk/arch)
 case $ARCH in
   x86) DL=i586;;
@@ -12,10 +10,6 @@ case $ARCH in
   s390x) DL=s390x;;
 esac
 wget https://github.com/heiher/natmap/releases/latest/download/natmap-linux-$DL -O /files/natmap
-
-wget https://repo.e-hentai.org/hath/HentaiAtHome_1.6.4.zip -O hath.zip
-apk add unzip
-unzip hath.zip HentaiAtHome.jar -d /files
 
 [[ $ARCH =~ 'x86_64|aarch64|ppc64le|s390x' ]] && \
 apk add openjdk11 && \

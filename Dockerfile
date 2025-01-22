@@ -11,7 +11,7 @@ FROM alpine AS release
 
 COPY --from=Builder /files /files
 COPY /files /files
-ENV PATH="$PATH:/files"
+ENV PATH="$PATH:/files:/files/jre/bin"
 ENV BUILD=176
 
 RUN chmod +x /files/* \

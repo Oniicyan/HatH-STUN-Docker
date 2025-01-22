@@ -25,4 +25,4 @@ apk add openjdk21 binutils && \
 DEPS=$(jdeps /files/HentaiAtHome.jar | awk '{print$NF}' | uniq) && \
 jlink --no-header-files --no-man-pages --compress=zip-9 --strip-debug --add-modules $(echo $DEPS | tr ' ' ',') --output /files/jre
 
-# exit 0
+exit 0

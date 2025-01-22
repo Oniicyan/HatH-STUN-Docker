@@ -25,4 +25,4 @@ jlink --no-header-files --no-man-pages --compress=2 --strip-debug --add-modules 
 apk add openjdk21 binutils && \
 jlink --no-header-files --no-man-pages --compress=zip-9 --strip-debug --add-modules $DEPS --output /files/jre
 
-# exit 0
+exit 0

@@ -11,13 +11,13 @@ FROM alpine AS release
 
 COPY --from=builder /files /files
 COPY /files /files
-ENV PATH="$PATH:/files:/files/jre/bin"
-ENV BUILD=176
+ENV PATH "$PATH:/files:/files/jre/bin"
+ENV BUILD 176
 
-RUN chmod +x /files/* \
-    && apk add curl miniupnpc \
-    && sh -c "[[ $(cat etc/apk/arch) =~ '^(x86|armhf|armv7)$' ]] && apk add openjdk8-jre-base || return 0" \
-    && rm -rf /var/cache/apk
+RUN chmod +x /files/* && \
+    apk add --update curl miniupnpc && \
+    sh -c "[[ $(cat etc/apk/arch) =~ '^(x86|armhf|armv7)$' ]] && apk add openjdk8-jre-base || return 0" && \
+    rm -rf /var/cache/apk
 
 CMD ["start.sh"]
 

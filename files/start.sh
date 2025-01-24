@@ -4,7 +4,7 @@ echo 开始执行 Hentai@Home with STUN
 
 mount | grep '/hath ' >/dev/null || (
 echo 未挂载工作目录
-echo 将在容器层上进行读写，性能较低且不持久
+echo 将在容器层上进行读写，性能较低且数据不持久
 mkdir -p /hath )
 
 # 仅指定已挂载的自定义目录
@@ -26,7 +26,7 @@ else
 	fi
 fi
 ([ $(echo $HathClientId | grep -E '^[0-9]*$') ] && [ $(echo -n $HathClientKey | wc -m) = 20 ]) || \
-(echo H@H 客户端 ID 或密钥格式不正确 && exit 1)
+(echo H@H 客户端 ID 或密钥格式不正确)
 
 ADD_UPNP() {
 	[ $UpnpAddr ] || UpnpAddr=@

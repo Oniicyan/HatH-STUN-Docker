@@ -54,6 +54,7 @@ ADD_UPNP() {
 
 if [ $Stun ]; then
 	echo 已启用 STUN，穿透后启动 H@H 客户端
+ 	rm -f /hath/WANPORT
 	([ $(echo $StunIpbId | grep -E '^[0-9]*$') ] && [ $(echo -n $StunIpbPass | wc -m) = 32 ]) ||\
 	(echo 用户 ID '(ipb_member_id)' 或密钥 '(ipb_pass_hash)' 格式不正确 && exit 1)
 	[ $StunServer ] || StunServer=turn.cloudflare.com

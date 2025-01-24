@@ -2,16 +2,21 @@
 
 echo 开始执行 Hentai@Home with STUN
 
+mount | grep '/hath ' >/dev/null || (
+echo 未挂载工作目录
+echo 将在容器层上进行读写，性能较低且不持久
+mkdir -p /hath )
+
 # 仅指定已挂载的自定义目录
-[ -d /hath_cache ] && export HathCache=/hath_cache && echo 已指定自定义缓存目录
-[ -d /hath_data ] && export HathData=/hath_data && echo 已指定自定义数据目录
-[ -d /hath_download ] && export HathDownload=/hath_download  && echo 已指定自定义下载目录
-[ -d /hath_log ] && export HathLog=/hath_log && echo 已指定自定义日志目录
-[ -d /hath_temp ] && export HathTemp=/hath_temp  && echo 已指定自定义临时目录
+[ -d /hath_cache ] && export HathCache=/hath_cache && echo 已挂载并指定自定义缓存目录
+[ -d /hath_data ] && export HathData=/hath_data && echo 已挂载并指定自定义数据目录
+[ -d /hath_download ] && export HathDownload=/hath_download  && echo 已挂载并指定自定义下载目录
+[ -d /hath_log ] && export HathLog=/hath_log && echo 已挂载并指定自定义日志目录
+[ -d /hath_temp ] && export HathTemp=/hath_temp  && echo 已挂载并指定自定义临时目录
 
 # 如未指定 HathClientId 或 HathClientKey，则从 client_login 中读取
 [ $HathData ] || HathData=/hath/data
-mkdir -p $HathData
+mkdir $HathData
 if [ $HathClientId ] && [ $HathClientKey ]; then
 	echo -n ''$HathClientId'-'$HathClientKey'' >$HathData/client_login
 else

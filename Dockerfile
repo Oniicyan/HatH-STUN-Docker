@@ -6,7 +6,8 @@ RUN mkdir /files && \
     sh builder.sh
 
 FROM alpine AS release
-COPY /files --from=builder /files /files
+COPY --from=builder /files /files
+COPY /files /files
 ENV PATH="$PATH:/files:/files/jre/bin" \
     BUILD=176
 RUN chmod +x /files/* && \

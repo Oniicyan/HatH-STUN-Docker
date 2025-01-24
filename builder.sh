@@ -13,7 +13,9 @@ case $ARCH in
 esac
 wget https://github.com/heiher/natmap/releases/latest/download/natmap-linux-$DL -O /files/natmap
 
-# H@H 客户端版本更新后，需手动确认依赖是否变更
+# H@H 客户端版本更新后，需确认依赖是否变更
+# jdeps --multi-release 21 /files/HentaiAtHome.jar >/tmp/DEPS 2>/dev/null
+# DEPS=$(cat /tmp/DEPS | awk '{print$NF}' | grep -E '^(java|jdk)\.' | sort | uniq | tr '\n' ',')jdk.crypto.ec
 DEPS=java.base,jdk.crypto.ec
 
 # x86 armhf armv7 不支持 jlink

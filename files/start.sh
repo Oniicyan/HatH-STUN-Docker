@@ -16,7 +16,7 @@ mkdir -p /hath )
 
 # 如未指定 HathClientId 或 HathClientKey，则从 client_login 中读取
 [ $HathData ] || HathData=/hath/data
-mkdir $HathData
+mkdir -p $HathData
 if [ $HathClientId ] && [ $HathClientKey ]; then
 	echo -n ''$HathClientId'-'$HathClientKey'' >$HathData/client_login
 else

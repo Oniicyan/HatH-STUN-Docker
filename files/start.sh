@@ -20,7 +20,7 @@ else
 		export HathClientKey=$(awk -F '-' '{print$2}' $HathData/client_login)
 	fi
 fi
-([ $(echo $HathClientId | grep -E '^[0-9]*$') ] && [ $(echo -n $HathClientKey | wc -m) = 20 ]) ||\
+([ $(echo $HathClientId | grep -E '^[0-9]*$') ] && [ $(echo -n $HathClientKey | wc -m) = 20 ]) || \
 (echo H@H 客户端 ID 或密钥格式不正确 && exit 1)
 
 ADD_UPNP() {
@@ -55,7 +55,7 @@ ADD_UPNP() {
 if [ $Stun ]; then
 	echo 已启用 STUN，穿透后启动 H@H 客户端
  	rm -f /hath/WANPORT
-	([ $(echo $StunIpbId | grep -E '^[0-9]*$') ] && [ $(echo -n $StunIpbPass | wc -m) = 32 ]) ||\
+	([ $(echo $StunIpbId | grep -E '^[0-9]*$') ] && [ $(echo -n $StunIpbPass | wc -m) = 32 ]) || \
 	(echo 用户 ID '(ipb_member_id)' 或密钥 '(ipb_pass_hash)' 格式不正确 && exit 1)
 	[ $StunServer ] || StunServer=turn.cloudflare.com
 	[ $StunHttpServer ] || StunHttpServer=qq.com

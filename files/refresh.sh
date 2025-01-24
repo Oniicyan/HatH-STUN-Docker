@@ -1,12 +1,12 @@
 #!/bin/sh
 
-[ $Stun ] ||\
+[ $Stun ] || \
 (echo 未启用 STUN，不执行刷新 && exit 1)
 
-ps aux | grep natmap | grep -v grep ||\
+ps aux | grep natmap | grep -v grep || \
 (echo NATMap 未在运行，请重启容器 && exit 1)
 
-[ -f /files/WANPORT ] ||\
+[ -f /hath/WANPORT ] || \
 (echo 未检测到公网端口，请检查 STUN 服务器 && exit 1)
 
 echo 开始刷新 Hentai@Home with STUN
@@ -16,7 +16,7 @@ HATHCID=$HathClientId
 HATHKEY=$HathClientKey
 EHIPBID=$(awk -F '-' '{print$1}' $HathData/client_login)
 EHIPBPW=$(awk -F '-' '{print$2}' $HathData/client_login)
-WANPORT=$(cat /files/WANPORT)
+WANPORT=$(cat /hath/WANPORT)
 
 [ $StunProxy ] || echo STUN 模式未配置代理，请留意 H@H 客户端设置信息能否获取与更新
 [ $StunProxy ] && PROXY='-x '$StunProxy''

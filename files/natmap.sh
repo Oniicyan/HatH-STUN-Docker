@@ -17,7 +17,7 @@ echo 当前穿透通道为 $WANADDR:$WANPORT，即将更新 H@H 客户端设置�
 touch /hath/stun.log
 [ $(wc -l </hath/stun.log) -ge 1000 ] && mv /hath/stun.log /hath/stun.log.old
 echo [$(date)] $WANADDR:$WANPORT '->' $HathPort >>/hath/stun.log
-echo $WANPORT >/files/WANPORT
+echo $WANPORT >/hath/WANPORT
 
 # 定义与 RPC 服务器交互的函数
 ACTION() {

@@ -51,7 +51,7 @@ ADD_UPNP() {
 		fi
 	fi
 	echo 本次 UPnP 规则：转发 外部端口 $UpnpExPort 至 内部端口 $UpnpInPort
-	UpnpStart='upnpc -4 -i -e "STUN H@H Client@'$HathClientId'" '$UpnpUrl' '$UpnpArgs'' -a '$UpnpAddr' '$UpnpInPort' '$UpnpExPort' tcp
+	UpnpStart='upnpc '$UpnpUrl' '$UpnpArgs' -4 -i -e "STUN H@H Client@'$HathClientId'" -a '$UpnpAddr' '$UpnpInPort' '$UpnpExPort' tcp'
 	echo 本次 UPnP 执行命令
 	echo $UpnpStart
 	$UpnpStart

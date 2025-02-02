@@ -29,8 +29,9 @@ fi
 (echo H@H 客户端 ID 或密钥格式不正确)
 
 ADD_UPNP() {
-	[ $UpnpAddr ] || UpnpAddr=@
+	[ $UpnpInterface ] && UpnpInterface='-m '$UpnpInterface''
 	[ $UpnpUrl ] && UpnpUrl='-u '$UpnpUrl''
+	[ $UpnpAddr ] || UpnpAddr=@
 	if [ $Stun ]; then
 		UpnpInPort=$StunHathPort
 		UpnpExPort=$StunBindPort
@@ -51,7 +52,7 @@ ADD_UPNP() {
 		fi
 	fi
 	echo 本次 UPnP 规则：转发 外部端口 $UpnpExPort 至 内部端口 $UpnpInPort
-	UpnpStart='upnpc '$UpnpUrl' '$UpnpArgs' -4 -i -e "STUN H@H Client@'$HathClientId'" -a '$UpnpAddr' '$UpnpInPort' '$UpnpExPort' tcp'
+	UpnpStart='upnpc '$UpnpArgs' '$UpnpInterface' '$UpnpUrl' -i -e "STUN H@H Client@'$HathClientId'" -a '$UpnpAddr' '$UpnpInPort' '$UpnpExPort' tcp'
 	echo 本次 UPnP 执行命令
 	echo $UpnpStart
 	$UpnpStart
@@ -76,7 +77,7 @@ if [ $Stun ]; then
 		echo 已启用 STUN 转发，目标为 $StunForwardAddr:$StunHathPort；跳过请求地址检测
 	fi
 	[ $Upnp ] && echo 已启用 UPnP，开始执行 && ADD_UPNP
-	NatmapStart='natmap -4 -s '$StunServer' -h '$StunHttpServer' -b '$StunBindPort' -k '$StunInterval' '$StunInterface' '$StunForward' '$StunArgs' -e /files/natmap.sh'
+	NatmapStart='natmap '$StunArgs' -4 -s '$StunServer' -h '$StunHttpServer' -b '$StunBindPort' -k '$StunInterval' '$StunInterface' '$StunForward' -e /files/natmap.sh'
 	echo 本次 NATMap 执行命令
 	echo $NatmapStart
 	exec $NatmapStart

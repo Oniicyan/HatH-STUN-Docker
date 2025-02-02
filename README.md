@@ -266,7 +266,9 @@ Windows 或 Linux 终端下执行 `curl` 确认能否直接访问 `https://e-hen
 
 测试以下命令；**注意代理的协议、地址与端口，这就是配置代理时需要的信息**
 
-`curl -x socks5://127.0.0.1:10808 -m 5 https://e-hentai.org/hentaiathome.php`
+**建议使用 `socks5h` 而不是 `socks5`，前者会使用远程服务器解析域名**
+
+`curl -x socks5h://127.0.0.1:10808 -m 5 https://e-hentai.org/hentaiathome.php`
 
 部分代理客户端需要添加 `e-hentai.org` 到代理规则
 
@@ -329,7 +331,7 @@ docker run -d \
 -e HathProxyHost='127.0.0.1' \
 -e HathProxyPort='10808' \
 -e Stun=1 \
--e StunProxy='socks5://127.0.0.1:10808' \
+-e StunProxy='socks5h://127.0.0.1:10808' \
 -e StunIpbId='ipb_member_id' \
 -e StunIpbPass='ipb_pass_hash' \
 -e Upnp=1 \
@@ -358,7 +360,7 @@ docker run -d \
 -e JvmSocksHost='127.0.0.1' \
 -e JvmSocksPort='10808' \
 -e Stun=1 \
--e StunProxy='socks5://127.0.0.1:10808' \
+-e StunProxy='socks5h://127.0.0.1:10808' \
 -e StunIpbId='ipb_member_id' \
 -e StunIpbPass='ipb_pass_hash' \
 oniicyan99/hentaiathome:latest

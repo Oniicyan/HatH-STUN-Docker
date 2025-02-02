@@ -418,7 +418,7 @@ oniicyan99/hentaiathome:latest
 | UpnpAddr | UPnP 规则的目的地址<br>Bridge 网络下请填写宿主的本地 IP 地址 | `@`（自动检测本地地址） |
 | UpnpInPort | UPnP 规则的内部端口 | 启用 STUN 时为 `StunHathPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
 | UpnpExPort | UPnP 规则的外部端口 | 启用 STUN 时为 `StunBindPort`<br>否则从 RPC 服务器获取 H@H 客户端端口 |
-| UpnpUrl | UPnP 设备描述文件 (XML) 的 URL<br>用作绕过发现过程，通常在 Bridge 模式下需要 | 无 |
+| UpnpUrl | UPnP 设备描述文件 (XML) 的 URL，用作绕过 SSDP 发现过程<br>通常在 Bridge 模式，或在路由器上运行容器时需要 | 无 |
 | UpnpArgs | [MiniUPnPc 其他参数](https://manpages.debian.org/unstable/miniupnpc/upnpc.1.en.html) | 无 |
 
 ## JVM

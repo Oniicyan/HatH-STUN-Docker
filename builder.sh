@@ -18,9 +18,8 @@ wget https://github.com/heiher/natmap/releases/latest/download/natmap-linux-$DL 
 # DEPS=$(cat /tmp/DEPS | awk '{print$NF}' | grep -E '^(java|jdk)\.' | sort | uniq | tr '\n' ',')jdk.crypto.ec
 DEPS=java.base,jdk.crypto.ec
 
-# x86 armhf armv7 不支持 jlink
-# ppc64le 与 s390x 可安装 openjdk11，ppc64le 目前版本 qemu 下执行 java 报错，s390x 提示 "Ambiguous z/Architecture detection!"
-# 可能需要在发行镜像上安装 openjdk8-jre-base
+# x86 armhf armv7 不支持 jlink，需要在发行镜像上安装 openjdk8-jre-base
+# ppc64le 与 s390x 可安装 openjdk11，ppc64le 目前版本 qemu 下执行 java 报错，s390x 提示 "Ambiguous z/Architecture detection!"；但不影响构建
 [[ $ARCH =~ 'x86_64|aarch64|ppc64le|s390x' ]] && \
 apk add openjdk11 && \
 jlink --no-header-files --no-man-pages --compress=2 --strip-debug --add-modules $DEPS --output /files/jre

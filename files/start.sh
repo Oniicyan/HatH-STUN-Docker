@@ -2,7 +2,7 @@
 
 echo 开始执行 Hentai@Home with STUN
 
-mount | grep '/hath ' >/dev/null || (
+mount | grep ' /hath ' >/dev/null || (
 echo 未挂载工作目录
 echo 将在容器层上进行读写，性能较低且数据不持久
 mkdir -p /hath )

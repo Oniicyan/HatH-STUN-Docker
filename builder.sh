@@ -1,4 +1,4 @@
-ARCH=$(cat etc/apk/arch)
+ARCH=$(cat /etc/apk/arch)
 
 # 下载 NATMap，识别对应的指令集架构
 case $ARCH in

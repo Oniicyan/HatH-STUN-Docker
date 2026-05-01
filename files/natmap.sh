@@ -61,7 +61,7 @@ while [ ! $SKIP ]; do
 	let SET++
  	[ $SET -gt 3 ] && logger -st $OWNNAME Failed to update the external port. Please check the PROXY. && exit 1
 	[ $SET -ne 1 ] && logger -st $OWNNAME Failed to update the external port. Wait 15 seconds ... && sleep 15
-	DATA='settings=1&f_port='$WANPORT'&f_cname='$f_cname'&f_throttle_KB='$f_throttle_KB'&f_disklimit_GB='$f_disklimit_GB'&f_reducestatic_ok='$f_reducestatic_ok''
+	DATA='settings=1&f_port='$WANPORT'&f_cname='$f_cname'&f_throttle_KB='$f_throttle_KB'&f_disklimit_GB='$f_disklimit_GB''
 	[ "$p_mthbwcap" = 0 ] || DATA=''$DATA'&p_mthbwcap='$p_mthbwcap''
 	[ "$f_diskremaining_MB" = 0 ] || DATA=''$DATA'&f_diskremaining_MB='$f_diskremaining_MB''
 	[ $f_enable_bwm ] && DATA=''$DATA'&f_enable_bwm=on'

@@ -59,8 +59,8 @@ done
 [ $SKIP ] || ACTION client_suspend >/dev/null
 while [ ! $SKIP ]; do
 	let SET++
- 	[ $SET -gt 3 ] && logger -st $OWNNAME Failed to update the external port. Please check the PROXY. && exit 1
-	[ $SET -ne 1 ] && logger -st $OWNNAME Failed to update the external port. Wait 15 seconds ... && sleep 15
+ 	[ $SET -gt 3 ] && echo 更新 H@H 客户端设置信息失败，请检查代理 && exit 1
+	[ $SET -ne 1 ] && echo 更新 H@H 客户端设置信息失败，15 秒后重试 && sleep 15
 	DATA='settings=1&f_port='$WANPORT'&f_cname='$f_cname'&f_throttle_KB='$f_throttle_KB'&f_disklimit_GB='$f_disklimit_GB'&f_reducestatic_ok=on'
 	[ "$p_mthbwcap" = 0 ] || DATA=''$DATA'&p_mthbwcap='$p_mthbwcap''
 	[ "$f_diskremaining_MB" = 0 ] || DATA=''$DATA'&f_diskremaining_MB='$f_diskremaining_MB''

@@ -34,9 +34,9 @@ echo 外部端口 $WANPORT/tcp 未发生变化 && SKIP=1
 # 获取 H@H 客户端设置信息
 while [ ! $SKIP ] && [ ! $f_cname ]; do
 	let GET++
- 	[ $GET -gt 3 ] && logger -st $OWNNAME Failed to get the settings. Please check the PROXY. && exit 1
- 	[ $GET -ne 1 ] && logger -st $OWNNAME Failed to get the settings. Wait 15 seconds ... && sleep 15
-	HATHPHP=/tmp/$OWNNAME.php
+ 	[ $GET -gt 3 ] && echo 获取 H@H 客户端设置信息失败，请检查代理 && exit 1
+ 	[ $GET -ne 1 ] && echo 获取 H@H 客户端设置信息失败，15 秒后重试 && sleep 15
+	HATHPHP=/tmp/settings.php
 	>$HATHPHP
 	curl $PROXY -Ls -m 15 \
 	-b 'ipb_member_id='$EHIPBID'; ipb_pass_hash='$EHIPBPW'' \
@@ -75,7 +75,7 @@ while [ ! $SKIP ]; do
 	-d ''$DATA'' \
 	'https://e-hentai.org/hentaiathome.php?cid='$HATHCID'&act=settings'
 	[ $(ACTION client_settings | grep port=$WANPORT) ] && \
-	logger -st $OWNNAME The external port $WANPORT/tcp is updated successfully. && break
+	echo 外部端口 $WANPORT/tcp 更新成功 && break
 done
 
 # 发送 client_start 后，检测是否需要启动 H@H 客户端
